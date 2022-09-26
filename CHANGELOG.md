@@ -29,3 +29,7 @@
 ## 0.0.26
 
 * Update Logic -＞　Widget area only tap reaction
+
+## 0.0.27
+
+* Update Logic -＞　Widget area only tap reaction

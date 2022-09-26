@@ -35,13 +35,12 @@ class WheelLogic {
 
   _originMethod(GlobalKey key, int margin) {
     var value = (key.globalPaintBounds?.height ?? 0);
-    var valueTop = (key.globalPaintBounds?.top ?? 0);
     if (originYList.isEmpty) {
       originYList.add(value + margin);
       originYListTop.add(margin.toDouble());
     } else {
+      originYListTop.add(originYList.last + margin);
       originYList.add(originYList.last + value + margin);
-      originYListTop.add(originYListTop.last + value + margin);
     }
   }
 
