@@ -91,7 +91,7 @@ A new Flutter plugin project.
 
 ## Example
 
-|  |  
-:--: 
+||  
+|-| 
 |<img width="300" src="https://user-images.githubusercontent.com/16457165/192292652-d85239cc-c1ad-492c-9ab7-ac9c731ebb90.gif">|
 
