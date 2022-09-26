@@ -37,4 +37,22 @@ class WheelPrimitiveWidget {
       ),
     );
   }
+
+  Widget loopWidget(
+    List<GlobalKey> keys,
+    BuildContext context,
+    List<String> textList,
+    double margin,
+    double fontSize,
+  ) {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          for (var i = 0; i < keys.length; i++) ...[
+            setSizeWidget(context, keys[i], textList[i], margin, fontSize),
+          ],
+        ],
+      ),
+    );
+  }
 }

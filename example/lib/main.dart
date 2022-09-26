@@ -35,62 +35,56 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   var tex = '';
-  var logic = WheelLogic();
+  var padding = 10.0;
   var margin = 30.0;
+  var fontSize = 30.0;
+  var logic = WheelLogic();
+  late WheelWidget wheelWidget;
   List<String> textList = [
-    'ABCDFGHIJKLMNOPQRSTUVWXYZ',
-    'ABCDFGHIJKLMNOPQRSTUVWXYZABCDFGHIJKLMNOPQRSTUVWXYZ',
-    'ABCDFGHIJKLMNOPQRSTUVWXYZ',
-    'ABCDFGHIJKLMNOPQRSTUVWXYZABCDFGHIJKLMNOPQRSTUVWXYZ',
-    'ABCDFGHIJKLMNOPQRSTUVWXYZABCDFGHIJKLMNOPQRSTUVWXYZ'
-        'ABCDFGHIJKLMNOPQRSTUVWXYZ'
-        'ABCDFGHIJKLMNOPQRSTUVWXYZ'
-        'ABCDFGHIJKLMNOPQRSTUVWXYZ'
-        'ABCDFGHIJKLMNOPQRSTUVWXYZ'
-        'ABCDFGHIJKLMNOPQRSTUVWXYZ'
-        'ABCDFGHIJKLMNOPQRSTUVWXYZ'
-        'ABCDFGHIJKLMNOPQRSTUVWXYZ'
-        'ABCDFGHIJKLMNOPQRSTUVWXYZ',
-    'ABCDFGHIJKLMNOPQRSTUVWXYZ',
-    'ABCDFGHIJKLMNOPQRSTUVWXYZ',
-    'ABCDFGHIJKLMNOPQRSTUVWXYZABCDFGHIJKLMNOPQRSTUVWXYZABCDFGHIJKLMNOPQRSTUVWXYZ',
-    'ABCDFGHIJKLMNOPQRSTUVWXYZABCDFGHIJKLMNOPQRSTUVWXYZ',
-    'ABCDFGHIJKLMNOPQRSTUVWXYZ',
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ',
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ',
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ',
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ',
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
   ];
-  List<GlobalKey> globalKey = [];
-  var wheelWidget = WheelWidget();
-
-  Widget _loop() {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          for (var i = 0; i < globalKey.length; i++) ...[
-            wheelWidget.setSizeWidget(
-                context, globalKey[i], textList[i], margin, margin.toDouble()),
-          ],
-        ],
-      ),
-    );
-  }
+  List<GlobalKey> globalKeys = [];
 
   @override
   void initState() {
     super.initState();
     for (final _ in textList) {
-      globalKey.add(GlobalKey());
+      globalKeys.add(GlobalKey());
     }
+    wheelWidget = WheelWidget(
+      marginSet: margin,
+      fontSizeSet: fontSize,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    logic.addHeightValue(globalKey, margin.toInt());
+    logic.addHeightValue(globalKeys, margin.toInt());
     return Scaffold(
       appBar: AppBar(
         title: Text(tex),
       ),
       body: Stack(
         children: [
-          _loop(),
+          wheelWidget.loopWidget(
+              globalKeys, context, textList, margin, fontSize),
           StreamBuilder(
             stream: logic.streamController.stream,
             builder:
@@ -113,7 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         originYList: logic.originYList,
                         streamController: logic.streamController,
                         margin: margin,
-                        padding: 10,
+                        padding: padding,
                       ),
                     ],
                   ),

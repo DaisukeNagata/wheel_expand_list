@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:wheel_expand_list/wheel_primitive_widget.dart';
 
 class WheelWidget implements WheelPrimitiveWidget {
+  const WheelWidget({required this.marginSet, required this.fontSizeSet});
+  final double marginSet;
+  final double fontSizeSet;
   /*
 　*You can set your favorite design.
 　* */
@@ -13,13 +16,35 @@ class WheelWidget implements WheelPrimitiveWidget {
     double fontSize,
   ) {
     return Container(
-      width: MediaQuery.of(context).size.width - 30,
+      width: MediaQuery.of(context).size.width - marginSet,
       color: Colors.green,
       child: Text(
         text,
-        style: const TextStyle(
-          fontSize: 30,
+        style: TextStyle(
+          fontSize: fontSizeSet,
         ),
+      ),
+    );
+  }
+
+  /*
+  * Used to pre-size the Widget.
+  * */
+  @override
+  Widget loopWidget(
+    List<GlobalKey> keys,
+    BuildContext context,
+    List<String> textList,
+    double margin,
+    double fontSize,
+  ) {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          for (var i = 0; i < keys.length; i++) ...[
+            setSizeWidget(context, keys[i], textList[i], margin, fontSize),
+          ],
+        ],
       ),
     );
   }

@@ -108,7 +108,11 @@ class WheelExpandList extends StatelessWidget {
               child: Wrap(
                 children: [
                   wheelPrimitiveWidget.primitiveWidget(
-                      context, textList[index], margin, 0),
+                    context,
+                    textList[index],
+                    margin,
+                    0,
+                  ),
                 ],
               ),
             ),
