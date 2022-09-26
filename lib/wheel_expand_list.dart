@@ -17,7 +17,7 @@ class WheelExpandList extends StatelessWidget {
     required this.streamController,
   });
 
-  final int margin;
+  final double margin;
   final double padding;
   final Function(int) callBack;
   final List<String> textList;

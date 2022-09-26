@@ -4,7 +4,7 @@ class WheelPrimitiveWidget {
   Widget primitiveWidget(
     BuildContext context,
     String text,
-    int margin,
+    double margin,
     double fontSize,
   ) {
     return SizedBox(
@@ -20,7 +20,7 @@ class WheelPrimitiveWidget {
     BuildContext context,
     GlobalKey key,
     String text,
-    int margin,
+    double margin,
     double fontSize,
   ) {
     return SafeArea(

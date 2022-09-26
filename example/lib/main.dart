@@ -36,7 +36,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   var tex = '';
   var logic = WheelLogic();
-  var margin = 30;
+  var margin = 30.0;
   List<String> textList = [
     'ABCDFGHIJKLMNOPQRSTUVWXYZ',
     'ABCDFGHIJKLMNOPQRSTUVWXYZABCDFGHIJKLMNOPQRSTUVWXYZ',
@@ -66,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
         children: [
           for (var i = 0; i < globalKey.length; i++) ...[
             wheelWidget.setSizeWidget(
-                context, globalKey[i], textList[i], margin, 30),
+                context, globalKey[i], textList[i], margin, margin.toDouble()),
           ],
         ],
       ),
@@ -112,7 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         heightList: logic.heightList,
                         originYList: logic.originYList,
                         streamController: logic.streamController,
-                        margin: (margin).toInt(),
+                        margin: margin,
                         padding: 10,
                       ),
                     ],

@@ -5,3 +5,7 @@
 ## 0.0.2
 
 * Setting method assignment
+
+## 0.0.21
+
+* Refactor

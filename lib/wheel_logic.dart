@@ -22,6 +22,10 @@ class WheelLogic {
     });
   }
 
+  void dispose() {
+    streamController.close();
+  }
+
   _originMethod(GlobalKey key, int margin) {
     var value = (key.globalPaintBounds?.height ?? 0);
     if (originYList.isEmpty) {

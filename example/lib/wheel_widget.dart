@@ -9,7 +9,7 @@ class WheelWidget implements WheelPrimitiveWidget {
   Widget primitiveWidget(
     BuildContext context,
     String text,
-    int margin,
+    double margin,
     double fontSize,
   ) {
     return Container(
@@ -32,7 +32,7 @@ class WheelWidget implements WheelPrimitiveWidget {
     BuildContext context,
     GlobalKey<State<StatefulWidget>> key,
     String text,
-    int margin,
+    double margin,
     double fontSize,
   ) {
     return SafeArea(
