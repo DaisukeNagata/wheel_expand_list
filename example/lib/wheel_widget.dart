@@ -23,7 +23,12 @@ class WheelWidget implements WheelPrimitiveWidget {
       child: Card(
         child: ListTile(
           leading: const Icon(Icons.people),
-          title: Text(text),
+          title: Text(
+            text,
+            style: TextStyle(
+              fontSize: fontSizeSet,
+            ),
+          ),
         ),
       ),
     );
@@ -77,7 +82,12 @@ class WheelWidget implements WheelPrimitiveWidget {
             child: Card(
               child: ListTile(
                 leading: const Icon(Icons.people),
-                title: Text(text),
+                title: Text(
+                  text,
+                  style: TextStyle(
+                    fontSize: fontSizeSet,
+                  ),
+                ),
               ),
             ),
           ),

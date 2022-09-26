@@ -34,13 +34,18 @@ A new Flutter plugin project.
       /// same widget
       child: Card(
         child: ListTile(
-          leading: Icon(Icons.people),
-          title: Text(text),
+          leading: const Icon(Icons.people),
+          title: Text(
+            text,
+            style: TextStyle(
+              fontSize: fontSizeSet,
+            ),
+          ),
         ),
       ),
     );
   }
-  
+
   /*
   * Used to pre-size the Widget.
   * */
@@ -60,14 +65,19 @@ A new Flutter plugin project.
           alignment: Alignment.topLeft,
           width: MediaQuery.of(context).size.width - margin,
           child: AnimatedOpacity(
-            duration: Duration(milliseconds: 1),
+            duration: const Duration(milliseconds: 1),
             opacity: 0,
 
             /// same widget
             child: Card(
               child: ListTile(
-                leading: Icon(Icons.people),
-                title: Text(text),
+                leading: const Icon(Icons.people),
+                title: Text(
+                  text,
+                  style: TextStyle(
+                    fontSize: fontSizeSet,
+                  ),
+                ),
               ),
             ),
           ),

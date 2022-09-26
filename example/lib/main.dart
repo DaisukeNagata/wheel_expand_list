@@ -35,9 +35,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   var tex = '';
-  var padding = 10.0;
-  var margin = 30.0;
-  var fontSize = 30.0;
+  var margin = 20.0;
+  var fontSize = 20.0;
   var logic = WheelLogic();
   late WheelWidget wheelWidget;
   List<String> textList = [
@@ -107,7 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         originYList: logic.originYList,
                         streamController: logic.streamController,
                         margin: margin,
-                        padding: padding,
+                        padding: margin / 2,
                       ),
                     ],
                   ),

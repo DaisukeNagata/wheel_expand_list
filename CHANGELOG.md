@@ -21,3 +21,7 @@
 ## 0.0.24
 
 * Update Document
+
+## 0.0.25
+
+* Update Example
