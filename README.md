@@ -1,6 +1,6 @@
 # wheel_expand_list
 
-A new Flutter plugin project.
+https://pub.dev/packages/wheel_expand_list
 
 ## Construction
 
