@@ -25,3 +25,7 @@
 ## 0.0.25
 
 * Update Example
+
+## 0.0.26
+
+* Update Logic -＞　Widget area only tap reaction

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
+import 'package:wheel_expand_list/wheel_logic.dart';
 import 'package:wheel_expand_list/wheel_primitive_widget.dart';
 
 class WheelExpandList extends StatelessWidget {
@@ -10,9 +11,8 @@ class WheelExpandList extends StatelessWidget {
     required this.margin,
     required this.padding,
     required this.callBack,
-    required this.textList,
-    required this.heightList,
-    required this.originYList,
+    required this.callPage,
+    required this.logic,
     required this.wheelPrimitiveWidget,
     required this.streamController,
   });
@@ -20,9 +20,8 @@ class WheelExpandList extends StatelessWidget {
   final double margin;
   final double padding;
   final Function(int) callBack;
-  final List<String> textList;
-  final List<double> heightList;
-  final List<double> originYList;
+  final Function(int) callPage;
+  final WheelLogic logic;
   final WheelPrimitiveWidget wheelPrimitiveWidget;
   final StreamController<List<double>> streamController;
   static int valueSet = 1;
@@ -32,15 +31,22 @@ class WheelExpandList extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTapDown: (v) => {
-        callBack.call(originYList
-            .indexWhere((element) => element > (v.localPosition.dy - padding))),
+        for (var i = 0; i < logic.originYList.length; i++)
+          {
+            if (logic.originYList[i] > v.localPosition.dy + padding &&
+                logic.originYListTop[i] < v.localPosition.dy + padding)
+              {
+                callBack.call(logic.originYList.indexWhere(
+                    (element) => element > (v.localPosition.dy - padding))),
+              },
+          },
       },
       child: Padding(
         padding: EdgeInsets.all(padding),
         child: SingleChildScrollView(
           child: SafeArea(
             child: SizedBox(
-              height: heightList
+              height: logic.heightList
                       .getRange(0, valueSet)
                       .toList()
                       .reduce((a, b) => a + b) -
@@ -56,6 +62,7 @@ class WheelExpandList extends StatelessWidget {
                             Future(() {
                               valueSet = valueSetReady;
                               streamController.sink.add([]);
+                              callPage.call(valueSet);
                             });
                           }
                           return true;
@@ -70,7 +77,7 @@ class WheelExpandList extends StatelessWidget {
                             }
                           },
                           children: List<Widget>.generate(
-                            heightList.length,
+                            logic.heightList.length,
                             (value) => ListView.builder(
                               scrollDirection: Axis.horizontal,
                               itemCount: value + 1,
@@ -96,7 +103,7 @@ class WheelExpandList extends StatelessWidget {
     return Row(
       children: [
         SizedBox(
-          width: heightList[index],
+          width: logic.heightList[index],
           height: MediaQuery.of(context).size.width - margin,
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
@@ -109,7 +116,7 @@ class WheelExpandList extends StatelessWidget {
                 children: [
                   wheelPrimitiveWidget.primitiveWidget(
                     context,
-                    textList[index],
+                    logic.textList[index],
                     margin,
                     0,
                   ),

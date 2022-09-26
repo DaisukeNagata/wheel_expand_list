@@ -34,56 +34,60 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var tex = '';
-  var margin = 20.0;
-  var fontSize = 20.0;
   var logic = WheelLogic();
   late WheelWidget wheelWidget;
-  List<String> textList = [
-    'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-    'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ',
-    'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-    'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ',
-    'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ'
-        'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-        'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-        'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-        'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-        'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-        'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-        'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-        'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-    'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-    'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-    'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ',
-    'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ',
-    'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-  ];
   List<GlobalKey> globalKeys = [];
 
   @override
   void initState() {
     super.initState();
-    for (final _ in textList) {
+    logic.textList = [
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ',
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ',
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ'
+          'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+          'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+          'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+          'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+          'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+          'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+          'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+          'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ',
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ',
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+    ];
+    logic.margin = 40.0;
+    logic.fontSize = 20.0;
+    for (final _ in logic.textList) {
       globalKeys.add(GlobalKey());
     }
     wheelWidget = WheelWidget(
-      marginSet: margin,
-      fontSizeSet: fontSize,
+      marginSet: logic.margin,
+      fontSizeSet: logic.fontSize,
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    logic.addHeightValue(globalKeys, margin.toInt());
+    logic.addHeightValue(globalKeys, logic.margin.toInt());
     return Scaffold(
       appBar: AppBar(
-        title: Text(tex),
+        title: Text('index ${logic.indexCount}: page${logic.pageCount}'),
       ),
       body: Stack(
         children: [
           wheelWidget.loopWidget(
-              globalKeys, context, textList, margin, fontSize),
+            globalKeys,
+            context,
+            logic.textList,
+            logic.margin,
+            logic.fontSize,
+          ),
           StreamBuilder(
             stream: logic.streamController.stream,
             builder:
@@ -96,17 +100,22 @@ class _MyHomePageState extends State<MyHomePage> {
                         callBack: (index) {
                           Future(() {
                             setState(() {
-                              tex = index.toString();
+                              logic.indexCount = index;
+                            });
+                          });
+                        },
+                        callPage: (page) {
+                          Future(() {
+                            setState(() {
+                              logic.pageCount = page;
                             });
                           });
                         },
                         wheelPrimitiveWidget: wheelWidget,
-                        textList: textList,
-                        heightList: logic.heightList,
-                        originYList: logic.originYList,
                         streamController: logic.streamController,
-                        margin: margin,
-                        padding: margin / 2,
+                        margin: logic.margin,
+                        padding: logic.margin / 2,
+                        logic: logic,
                       ),
                     ],
                   ),
