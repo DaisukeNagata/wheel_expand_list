@@ -29,10 +29,47 @@ A new Flutter plugin project.
     return Container(
       width: MediaQuery.of(context).size.width - marginSet,
       color: Colors.green,
-      child: Text(
-        text,
-        style: TextStyle(
-          fontSize: fontSizeSet,
+
+      /// same widget
+      child: Card(
+        child: ListTile(
+          leading: Icon(Icons.people),
+          title: Text(text),
+        ),
+      ),
+    );
+  }
+  
+    /*
+  * Used to pre-size the Widget.
+  * */
+  @override
+  Widget setSizeWidget(
+    BuildContext context,
+    GlobalKey<State<StatefulWidget>> key,
+    String text,
+    double margin,
+    double fontSize,
+  ) {
+    return IgnorePointer(
+      ignoring: true,
+      child: SafeArea(
+        child: Container(
+          key: key,
+          alignment: Alignment.topLeft,
+          width: MediaQuery.of(context).size.width - margin,
+          child: AnimatedOpacity(
+            duration: Duration(milliseconds: 1),
+            opacity: 0,
+
+            /// same widget
+            child: Card(
+              child: ListTile(
+                leading: Icon(Icons.people),
+                title: Text(text),
+              ),
+            ),
+          ),
         ),
       ),
     );

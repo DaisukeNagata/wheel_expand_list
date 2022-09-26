@@ -18,10 +18,12 @@ class WheelWidget implements WheelPrimitiveWidget {
     return Container(
       width: MediaQuery.of(context).size.width - marginSet,
       color: Colors.green,
-      child: Text(
-        text,
-        style: TextStyle(
-          fontSize: fontSizeSet,
+
+      /// same widget
+      child: Card(
+        child: ListTile(
+          leading: Icon(Icons.people),
+          title: Text(text),
         ),
       ),
     );
@@ -60,16 +62,24 @@ class WheelWidget implements WheelPrimitiveWidget {
     double margin,
     double fontSize,
   ) {
-    return SafeArea(
-      child: Container(
-        alignment: Alignment.topLeft,
-        width: MediaQuery.of(context).size.width - margin,
-        child: Text(
+    return IgnorePointer(
+      ignoring: true,
+      child: SafeArea(
+        child: Container(
           key: key,
-          text,
-          style: TextStyle(
-            fontSize: fontSize,
-            color: Colors.transparent,
+          alignment: Alignment.topLeft,
+          width: MediaQuery.of(context).size.width - margin,
+          child: AnimatedOpacity(
+            duration: Duration(milliseconds: 1),
+            opacity: 0,
+
+            /// same widget
+            child: Card(
+              child: ListTile(
+                leading: Icon(Icons.people),
+                title: Text(text),
+              ),
+            ),
           ),
         ),
       ),
