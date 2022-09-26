@@ -16,6 +16,7 @@ A new Flutter plugin project.
   );
   
   WheelWidget class ....
+  check is this 'same widget'
   /*
 　*You can set your favorite design.
 　* */
@@ -40,7 +41,7 @@ A new Flutter plugin project.
     );
   }
   
-    /*
+  /*
   * Used to pre-size the Widget.
   * */
   @override
@@ -80,6 +81,7 @@ A new Flutter plugin project.
 
 ## Example
 
-|  | |
-:--: | :--:
-|<img width="300" src="https://user-images.githubusercontent.com/16457165/192257620-2e9ad9ba-4251-4ebb-bdc1-aec242441833.gif">|<img width="400" src="https://user-images.githubusercontent.com/16457165/192257599-97c82dfa-e079-4a6b-9e7a-a37f98ad42b3.gif">|
+|  |  
+:--: 
+|<img width="300" src="https://user-images.githubusercontent.com/16457165/192292652-d85239cc-c1ad-492c-9ab7-ac9c731ebb90.gif">|
+
