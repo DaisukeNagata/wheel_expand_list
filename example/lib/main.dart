@@ -36,7 +36,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   var tex = '';
   var logic = WheelLogic();
-  var margin = 15;
+  var margin = 30;
   List<String> textList = [
     'ABCDFGHIJKLMNOPQRSTUVWXYZ',
     'ABCDFGHIJKLMNOPQRSTUVWXYZABCDFGHIJKLMNOPQRSTUVWXYZ',
