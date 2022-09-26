@@ -6,6 +6,16 @@ A new Flutter plugin project.
 
 ### Your favorite design will be reflected in the Widget.
 ```
+  MyApp class ....
+  var margin = 30.0;
+  var fontSize = 30.0;
+  
+  wheelWidget = WheelWidget(
+    marginSet: margin,
+    fontSizeSet: fontSize,
+  );
+  
+  WheelWidget class ....
   /*
 　*You can set your favorite design.
 　* */
@@ -13,20 +23,21 @@ A new Flutter plugin project.
   Widget primitiveWidget(
     BuildContext context,
     String text,
-    int margin,
+    double margin,
     double fontSize,
   ) {
     return Container(
-      width: MediaQuery.of(context).size.width - 30,
+      width: MediaQuery.of(context).size.width - marginSet,
       color: Colors.green,
       child: Text(
         text,
-        style: const TextStyle(
-          fontSize: 30,
+        style: TextStyle(
+          fontSize: fontSizeSet,
         ),
       ),
     );
   }
+
 ```
 
 
