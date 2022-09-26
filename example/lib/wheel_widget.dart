@@ -22,7 +22,7 @@ class WheelWidget implements WheelPrimitiveWidget {
       /// same widget
       child: Card(
         child: ListTile(
-          leading: Icon(Icons.people),
+          leading: const Icon(Icons.people),
           title: Text(text),
         ),
       ),
@@ -70,13 +70,13 @@ class WheelWidget implements WheelPrimitiveWidget {
           alignment: Alignment.topLeft,
           width: MediaQuery.of(context).size.width - margin,
           child: AnimatedOpacity(
-            duration: Duration(milliseconds: 1),
+            duration: const Duration(milliseconds: 1),
             opacity: 0,
 
             /// same widget
             child: Card(
               child: ListTile(
-                leading: Icon(Icons.people),
+                leading: const Icon(Icons.people),
                 title: Text(text),
               ),
             ),
