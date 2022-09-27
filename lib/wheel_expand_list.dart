@@ -44,11 +44,7 @@ class WheelExpandList extends StatelessWidget {
         child: SingleChildScrollView(
           child: SafeArea(
             child: SizedBox(
-              height: logic.heightList
-                      .getRange(0, logic.valueSet)
-                      .toList()
-                      .reduce((a, b) => a + b) -
-                  margin,
+              height: logic.heightList.reduce((a, b) => a + b) - margin,
               child: Column(
                 children: [
                   Flexible(
@@ -78,7 +74,7 @@ class WheelExpandList extends StatelessWidget {
                             logic.heightList.length,
                             (value) => ListView.builder(
                               scrollDirection: Axis.horizontal,
-                              itemCount: value + 1,
+                              itemCount: logic.pageList[value],
                               itemBuilder: (context, index) {
                                 return _widgetDesign(context, index);
                               },

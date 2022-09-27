@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:wheel_expand_list/wheel_expand_list.dart';
@@ -39,26 +40,14 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    logic.textList = [
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ',
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ',
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ'
-          'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-          'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-          'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-          'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-          'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-          'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-          'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-          'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ',
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ',
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-    ];
+
+    /// Example
+    for (var i = 0; i < 10; i++) {
+      logic.textList.add(i.toString());
+      logic.pageList.add(Random().nextInt(10));
+      logic.valueSet = Random().nextInt(10);
+    }
+
     logic.initSet(
       marginSet: 20.0,
       fontSizeSet: 20.0,
@@ -74,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('index ${logic.indexCount}: page${logic.pageCount}'),
+        title: Text('index${logic.indexCount}: page${logic.pageCount}'),
       ),
       body: Stack(
         children: [

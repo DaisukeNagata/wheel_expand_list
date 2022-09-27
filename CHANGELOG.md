@@ -37,3 +37,7 @@
 ## 0.0.28
 
 * Refactor
+
+## 0.0.29
+
+* change logic -＞ select data

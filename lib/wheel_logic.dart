@@ -10,6 +10,7 @@ class WheelLogic {
   int valueSetReady = 1;
   double margin = 0.0;
   double fontSize = 0.0;
+  List<int> pageList = [];
   List<String> textList = [];
   List<double> heightList = [];
   List<double> originYList = [];
