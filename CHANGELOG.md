@@ -41,3 +41,7 @@
 ## 0.0.29
 
 * change logic -＞ select data
+
+## 0.0.3
+
+* change logic -＞ bottom area tap control

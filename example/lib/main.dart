@@ -44,8 +44,8 @@ class _MyHomePageState extends State<MyHomePage> {
     /// Example
     for (var i = 0; i < 10; i++) {
       logic.textList.add(i.toString());
-      logic.pageList.add(Random().nextInt(10));
-      logic.valueSet = Random().nextInt(10);
+      logic.pageList.add(Random().nextInt(9) == 0 ? 1 : Random().nextInt(9));
+      logic.valueSet = Random().nextInt(9);
     }
 
     logic.initSet(

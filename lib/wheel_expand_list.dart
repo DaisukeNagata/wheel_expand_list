@@ -32,7 +32,9 @@ class WheelExpandList extends StatelessWidget {
         for (var i = 0; i < logic.originYList.length; i++)
           {
             if (logic.originYList[i] > v.localPosition.dy + padding &&
-                logic.originYListTop[i] < v.localPosition.dy + padding)
+                logic.originYListTop[i] < v.localPosition.dy + padding &&
+                logic.originYListTop[logic.pageList[logic.valueSet]] - margin >
+                    v.localPosition.dy + padding)
               {
                 callBack.call(logic.originYList.indexWhere(
                     (element) => element > (v.localPosition.dy - padding))),
@@ -44,7 +46,11 @@ class WheelExpandList extends StatelessWidget {
         child: SingleChildScrollView(
           child: SafeArea(
             child: SizedBox(
-              height: logic.heightList.reduce((a, b) => a + b) - margin,
+              height: logic.heightList
+                      .getRange(0, logic.pageList[logic.valueSet])
+                      .toList()
+                      .reduce((a, b) => a + b) -
+                  margin,
               child: Column(
                 children: [
                   Flexible(
@@ -57,6 +63,12 @@ class WheelExpandList extends StatelessWidget {
                               logic.valueSet = logic.valueSetReady;
                               streamController.sink.add([]);
                             });
+                          } else if (notificationInfo
+                              is ScrollStartNotification) {
+                            Future(() {
+                              logic.indexCount = 0;
+                              streamController.sink.add([]);
+                            });
                           }
                           return true;
                         },
@@ -65,9 +77,9 @@ class WheelExpandList extends StatelessWidget {
                           physics: const FixedExtentScrollPhysics(),
                           clipBehavior: Clip.antiAlias,
                           onSelectedItemChanged: (index) {
-                            if (logic.valueSet != index + 1) {
+                            if (logic.valueSet != index) {
                               callPage.call(index);
-                              logic.valueSetReady = index + 1;
+                              logic.valueSetReady = index;
                             }
                           },
                           children: List<Widget>.generate(
