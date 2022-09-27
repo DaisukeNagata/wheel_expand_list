@@ -49,7 +49,13 @@ class WheelWidget implements WheelPrimitiveWidget {
       child: Column(
         children: [
           for (var i = 0; i < keys.length; i++) ...[
-            setSizeWidget(context, keys[i], textList[i], margin, fontSize),
+            setSizeWidget(
+              context,
+              keys[i],
+              textList[i],
+              margin,
+              fontSize,
+            ),
           ],
         ],
       ),

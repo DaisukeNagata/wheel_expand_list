@@ -4,15 +4,30 @@ import 'package:flutter/material.dart';
 import 'package:wheel_expand_list/wheel_global_key_ex.dart';
 
 class WheelLogic {
-  int pageCount = 1;
+  int pageCount = 0;
   int indexCount = 0;
+  int valueSet = 1;
+  int valueSetReady = 1;
   double margin = 0.0;
   double fontSize = 0.0;
   List<String> textList = [];
   List<double> heightList = [];
   List<double> originYList = [];
   List<double> originYListTop = [];
+  List<GlobalKey> globalKeys = [];
   var streamController = StreamController<List<double>>();
+
+  void initSet({
+    required double marginSet,
+    required double fontSizeSet,
+  }) {
+    margin = marginSet;
+    fontSize = fontSizeSet;
+    for (final _ in textList) {
+      globalKeys.add(GlobalKey());
+    }
+    addHeightValue(globalKeys, margin.toInt());
+  }
 
   void addHeightValue(List<GlobalKey> keys, int margin) {
     Future(() async {

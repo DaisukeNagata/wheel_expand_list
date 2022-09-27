@@ -33,3 +33,7 @@
 ## 0.0.27
 
 * Update Logic -＞　Widget area only tap reaction
+
+## 0.0.28
+
+* Refactor

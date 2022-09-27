@@ -24,8 +24,6 @@ class WheelExpandList extends StatelessWidget {
   final WheelLogic logic;
   final WheelPrimitiveWidget wheelPrimitiveWidget;
   final StreamController<List<double>> streamController;
-  static int valueSet = 1;
-  static int valueSetReady = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +45,7 @@ class WheelExpandList extends StatelessWidget {
           child: SafeArea(
             child: SizedBox(
               height: logic.heightList
-                      .getRange(0, valueSet)
+                      .getRange(0, logic.valueSet)
                       .toList()
                       .reduce((a, b) => a + b) -
                   margin,
@@ -60,9 +58,8 @@ class WheelExpandList extends StatelessWidget {
                         onNotification: (notificationInfo) {
                           if (notificationInfo is ScrollEndNotification) {
                             Future(() {
-                              valueSet = valueSetReady;
+                              logic.valueSet = logic.valueSetReady;
                               streamController.sink.add([]);
-                              callPage.call(valueSet);
                             });
                           }
                           return true;
@@ -72,8 +69,9 @@ class WheelExpandList extends StatelessWidget {
                           physics: const FixedExtentScrollPhysics(),
                           clipBehavior: Clip.antiAlias,
                           onSelectedItemChanged: (index) {
-                            if (valueSet != index + 1) {
-                              valueSetReady = index + 1;
+                            if (logic.valueSet != index + 1) {
+                              callPage.call(index);
+                              logic.valueSetReady = index + 1;
                             }
                           },
                           children: List<Widget>.generate(
@@ -111,13 +109,16 @@ class WheelExpandList extends StatelessWidget {
               transform: Matrix4.identity()
                 ..rotateZ(-90 * pi / 180)
                 ..setTranslationRaw(
-                    0, MediaQuery.of(context).size.width - margin, 0),
+                  0,
+                  MediaQuery.of(context).size.width - margin,
+                  0,
+                ),
               child: Wrap(
                 children: [
                   wheelPrimitiveWidget.primitiveWidget(
                     context,
                     logic.textList[index],
-                    margin,
+                    0,
                     0,
                   ),
                 ],

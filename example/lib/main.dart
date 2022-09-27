@@ -15,7 +15,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'EveryDaySoft',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -36,7 +35,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   var logic = WheelLogic();
   late WheelWidget wheelWidget;
-  List<GlobalKey> globalKeys = [];
 
   @override
   void initState() {
@@ -61,11 +59,11 @@ class _MyHomePageState extends State<MyHomePage> {
       'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ',
       'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
     ];
-    logic.margin = 40.0;
-    logic.fontSize = 20.0;
-    for (final _ in logic.textList) {
-      globalKeys.add(GlobalKey());
-    }
+    logic.initSet(
+      marginSet: 20.0,
+      fontSizeSet: 20.0,
+    );
+
     wheelWidget = WheelWidget(
       marginSet: logic.margin,
       fontSizeSet: logic.fontSize,
@@ -74,7 +72,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    logic.addHeightValue(globalKeys, logic.margin.toInt());
     return Scaffold(
       appBar: AppBar(
         title: Text('index ${logic.indexCount}: page${logic.pageCount}'),
@@ -82,7 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Stack(
         children: [
           wheelWidget.loopWidget(
-            globalKeys,
+            logic.globalKeys,
             context,
             logic.textList,
             logic.margin,
@@ -90,8 +87,10 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           StreamBuilder(
             stream: logic.streamController.stream,
-            builder:
-                (BuildContext context, AsyncSnapshot<List<double>> snapshot) {
+            builder: (
+              BuildContext context,
+              AsyncSnapshot<List<double>> snapshot,
+            ) {
               if (snapshot.hasData) {
                 return SingleChildScrollView(
                   child: Column(
