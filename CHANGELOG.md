@@ -45,3 +45,7 @@
 ## 0.0.3
 
 * change logic -＞ bottom area tap control
+
+## 0.0.31
+
+* Update Example

@@ -47,10 +47,9 @@ class WheelExpandList extends StatelessWidget {
           child: SafeArea(
             child: SizedBox(
               height: logic.heightList
-                      .getRange(0, logic.pageList[logic.valueSet])
-                      .toList()
-                      .reduce((a, b) => a + b) -
-                  margin,
+                  .getRange(0, logic.pageList[logic.valueSet])
+                  .toList()
+                  .reduce((a, b) => a + b),
               child: Column(
                 children: [
                   Flexible(

@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:wheel_expand_list/wheel_primitive_widget.dart';
 
 class WheelWidget implements WheelPrimitiveWidget {
-  const WheelWidget({required this.marginSet, required this.fontSizeSet});
+  const WheelWidget({
+    required this.marginSet,
+    required this.fontSizeSet,
+  });
   final double marginSet;
   final double fontSizeSet;
   /*

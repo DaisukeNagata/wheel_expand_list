@@ -39,17 +39,16 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
+    /// Example
+    for (var i = 1; i < 11; i++) {
+      logic.textList.add(_generateRandomString(i * 10));
+      logic.pageList.add(Random().nextInt(9) == 0 ? 1 : Random().nextInt(9));
+      logic.valueSet = logic.pageList.first;
+    }
     super.initState();
 
-    /// Example
-    for (var i = 0; i < 10; i++) {
-      logic.textList.add(i.toString());
-      logic.pageList.add(Random().nextInt(9) == 0 ? 1 : Random().nextInt(9));
-      logic.valueSet = Random().nextInt(9);
-    }
-
     logic.initSet(
-      marginSet: 20.0,
+      marginSet: 50.0,
       fontSizeSet: 20.0,
     );
 
@@ -116,5 +115,13 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
     );
+  }
+
+  String _generateRandomString(int len) {
+    var r = Random();
+    const chars =
+        'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+    return List.generate(len.toInt(), (index) => chars[r.nextInt(chars.length)])
+        .join();
   }
 }
