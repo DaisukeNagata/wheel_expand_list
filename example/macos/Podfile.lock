@@ -1,0 +1,22 @@
+PODS:
+  - FlutterMacOS (1.0.0)
+  - wheel_expand_list (0.0.1):
+    - FlutterMacOS
+
+DEPENDENCIES:
+  - FlutterMacOS (from `Flutter/ephemeral`)
+  - wheel_expand_list (from `Flutter/ephemeral/.symlinks/plugins/wheel_expand_list/macos`)
+
+EXTERNAL SOURCES:
+  FlutterMacOS:
+    :path: Flutter/ephemeral
+  wheel_expand_list:
+    :path: Flutter/ephemeral/.symlinks/plugins/wheel_expand_list/macos
+
+SPEC CHECKSUMS:
+  FlutterMacOS: ae6af50a8ea7d6103d888583d46bd8328a7e9811
+  wheel_expand_list: c067c2ad05981b1a15beb1000cb9a0c6baaa8791
+
+PODFILE CHECKSUM: 6eac6b3292e5142cfc23bdeb71848a40ec51c14c
+
+COCOAPODS: 1.11.3

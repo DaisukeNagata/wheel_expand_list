@@ -53,3 +53,7 @@
 ## 0.0.32
 
 * Update Example
+
+## 0.0.33
+
+* Update Directory
