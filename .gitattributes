@@ -1,6 +1,6 @@
-*.C++ linguist-detectable=false
-*.CMake linguist-detectable=false
-*.Ruby linguist-detectable=false
-*.Swift linguist-detectable=false
-*.Kotlin linguist-detectable=false
-*.Other linguist-detectable=false
+*.c++ linguist-detectable=false
+*.cMake linguist-detectable=false
+*.ruby linguist-detectable=false
+*.swift linguist-detectable=false
+*.kotlin linguist-detectable=false
+*.other linguist-detectable=false
