@@ -37,12 +37,17 @@ class _MyHomePageState extends State<MyHomePage> {
   var logic = WheelLogic();
   late WheelWidget wheelWidget;
 
+  int randomIntWithRange(int min, int max) {
+    int value = Random().nextInt(max - min);
+    return value + min;
+  }
+
   @override
   void initState() {
     /// Example
     for (var i = 1; i < 11; i++) {
-      logic.textList.add(_generateRandomString(i * 10));
-      logic.pageList.add(Random().nextInt(9) == 0 ? 1 : Random().nextInt(9));
+      logic.textList.add(_generateRandomString(i * randomIntWithRange(1, 100)));
+      logic.pageList.add(randomIntWithRange(1, 9));
       logic.valueSet = logic.pageList.first;
     }
     super.initState();
