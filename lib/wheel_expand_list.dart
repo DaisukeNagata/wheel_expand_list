@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
+import 'package:wheel_expand_list/wheel_data_model.dart';
 import 'package:wheel_expand_list/wheel_logic.dart';
 import 'package:wheel_expand_list/wheel_primitive_widget.dart';
 
@@ -11,9 +12,9 @@ class WheelExpandList extends StatelessWidget {
     required this.margin,
     required this.padding,
     required this.callBack,
-    required this.callPage,
     required this.logic,
-    required this.slideType,
+    required this.pageCall,
+    required this.wheelDataModel,
     required this.wheelPrimitiveWidget,
     required this.streamController,
   });
@@ -21,12 +22,11 @@ class WheelExpandList extends StatelessWidget {
   final double margin;
   final double padding;
   final Function(int) callBack;
-  final Function(int) callPage;
+  final Function(int) pageCall;
   final WheelLogic logic;
-  final bool slideType;
+  final WheelDataModel wheelDataModel;
   final WheelPrimitiveWidget wheelPrimitiveWidget;
   final StreamController<List<double>> streamController;
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -49,7 +49,7 @@ class WheelExpandList extends StatelessWidget {
           child: SafeArea(
             child: SizedBox(
               height: logic.heightList
-                  .getRange(0, logic.pageList[logic.valueSet])
+                  .getRange(0, logic.pageCount)
                   .toList()
                   .reduce((a, b) => a + b),
               child: Column(
@@ -61,34 +61,34 @@ class WheelExpandList extends StatelessWidget {
                         onNotification: (notificationInfo) {
                           if (notificationInfo is ScrollEndNotification) {
                             Future(() {
-                              logic.valueSet = logic.valueSetReady;
+                              logic.valueSet = logic.valueSetReady + 1;
                               streamController.sink.add([]);
                             });
                           } else if (notificationInfo
                               is ScrollStartNotification) {
                             Future(() {
                               logic.indexCount = 0;
-                              streamController.sink.add([]);
                             });
                           }
                           return true;
                         },
                         child: ListWheelScrollView(
-                          diameterRatio: slideType ? 2 : 200,
+                          controller: logic.c,
+                          renderChildrenOutsideViewport: false,
+                          diameterRatio: wheelDataModel.diameterRatio,
                           itemExtent: MediaQuery.of(context).size.width,
                           physics: const FixedExtentScrollPhysics(),
                           clipBehavior: Clip.antiAlias,
                           onSelectedItemChanged: (index) {
-                            if (logic.valueSet != index) {
-                              callPage.call(index);
-                              logic.valueSetReady = index;
-                            }
+                            pageCall.call(index);
+                            logic.valueSetReady = index;
+                            logic.pageCount = index == 0 ? 1 : index + 1;
                           },
                           children: List<Widget>.generate(
-                            logic.heightList.length,
+                            wheelDataModel.generate,
                             (value) => ListView.builder(
                               scrollDirection: Axis.horizontal,
-                              itemCount: logic.pageList[value],
+                              itemCount: wheelDataModel.itemCount,
                               itemBuilder: (context, index) {
                                 return _widgetDesign(context, index);
                               },

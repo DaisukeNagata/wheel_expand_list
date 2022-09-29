@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:wheel_expand_list/wheel_expand_list.dart';
 import 'package:wheel_expand_list/wheel_logic.dart';
+import 'package:wheel_expand_list_example/wheel_data_set.dart';
 import 'package:wheel_expand_list_example/wheel_widget.dart';
 
 void main() {
@@ -35,9 +36,9 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   var logic = WheelLogic();
+  late WheelDataSet data;
   late WheelWidget wheelWidget;
 
-  var slideActionFlg = false;
   int randomIntWithRange(int min, int max) {
     int value = Random().nextInt(max - min);
     return value + min;
@@ -58,6 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
       fontSizeSet: 20.0,
     );
 
+    data = WheelDataSet(logic: logic);
     wheelWidget = WheelWidget(
       marginSet: logic.margin,
       fontSizeSet: logic.fontSize,
@@ -71,9 +73,9 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text('index${logic.indexCount}: page${logic.pageCount}'),
         actions: [Row()],
         leading: IconButton(
-          icon: Icon(Icons.add),
+          icon: const Icon(Icons.add),
           onPressed: () => {
-            slideActionFlg = !slideActionFlg,
+            logic.slideActionFlg = !logic.slideActionFlg,
           },
         ),
       ),
@@ -104,19 +106,24 @@ class _MyHomePageState extends State<MyHomePage> {
                             });
                           });
                         },
-                        callPage: (page) {
+                        pageCall: (index) {
                           Future(() {
                             setState(() {
-                              logic.pageCount = page;
+                              data.startController(
+                                index,
+                                logic.c,
+                                300,
+                                Curves.easeIn,
+                              );
                             });
                           });
                         },
+                        wheelDataModel: data,
                         wheelPrimitiveWidget: wheelWidget,
                         streamController: logic.streamController,
                         margin: logic.margin,
                         padding: logic.margin / 2,
                         logic: logic,
-                        slideType: slideActionFlg,
                       ),
                     ],
                   ),

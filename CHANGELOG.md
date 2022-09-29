@@ -61,3 +61,7 @@
 ## 0.0.34
 
 * Add slide action function
+
+## 0.0.35
+
+* Update Logic -> scroll function

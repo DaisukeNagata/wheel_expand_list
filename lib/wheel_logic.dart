@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:wheel_expand_list/wheel_global_key_ex.dart';
 
 class WheelLogic {
-  int pageCount = 0;
+  int pageCount = 1;
   int indexCount = 0;
   int valueSet = 1;
   int valueSetReady = 1;
@@ -16,6 +16,8 @@ class WheelLogic {
   List<double> originYList = [];
   List<double> originYListTop = [];
   List<GlobalKey> globalKeys = [];
+  var slideActionFlg = false;
+  var c = FixedExtentScrollController(initialItem: 0);
   var streamController = StreamController<List<double>>();
 
   void initSet({
