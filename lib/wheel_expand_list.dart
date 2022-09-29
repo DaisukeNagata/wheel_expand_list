@@ -13,6 +13,7 @@ class WheelExpandList extends StatelessWidget {
     required this.callBack,
     required this.callPage,
     required this.logic,
+    required this.slideType,
     required this.wheelPrimitiveWidget,
     required this.streamController,
   });
@@ -22,6 +23,7 @@ class WheelExpandList extends StatelessWidget {
   final Function(int) callBack;
   final Function(int) callPage;
   final WheelLogic logic;
+  final bool slideType;
   final WheelPrimitiveWidget wheelPrimitiveWidget;
   final StreamController<List<double>> streamController;
 
@@ -72,6 +74,7 @@ class WheelExpandList extends StatelessWidget {
                           return true;
                         },
                         child: ListWheelScrollView(
+                          diameterRatio: slideType ? 2 : 200,
                           itemExtent: MediaQuery.of(context).size.width,
                           physics: const FixedExtentScrollPhysics(),
                           clipBehavior: Clip.antiAlias,

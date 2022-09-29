@@ -37,6 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
   var logic = WheelLogic();
   late WheelWidget wheelWidget;
 
+  var slideActionFlg = false;
   int randomIntWithRange(int min, int max) {
     int value = Random().nextInt(max - min);
     return value + min;
@@ -68,6 +69,13 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('index${logic.indexCount}: page${logic.pageCount}'),
+        actions: [Row()],
+        leading: IconButton(
+          icon: Icon(Icons.add),
+          onPressed: () => {
+            slideActionFlg = !slideActionFlg,
+          },
+        ),
       ),
       body: Stack(
         children: [
@@ -108,6 +116,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         margin: logic.margin,
                         padding: logic.margin / 2,
                         logic: logic,
+                        slideType: slideActionFlg,
                       ),
                     ],
                   ),

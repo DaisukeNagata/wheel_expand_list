@@ -57,3 +57,7 @@
 ## 0.0.33
 
 * Update Directory
+
+## 0.0.34
+
+* Add slide action function
