@@ -65,3 +65,7 @@
 ## 0.0.35
 
 * Update Logic -> scroll function
+
+## 0.0.36
+
+* Update Logic -> refactor

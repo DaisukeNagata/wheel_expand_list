@@ -9,22 +9,18 @@ import 'package:wheel_expand_list/wheel_primitive_widget.dart';
 class WheelExpandList extends StatelessWidget {
   const WheelExpandList({
     super.key,
-    required this.margin,
-    required this.padding,
     required this.callBack,
     required this.logic,
     required this.pageCall,
-    required this.wheelDataModel,
+    required this.data,
     required this.wheelPrimitiveWidget,
     required this.streamController,
   });
 
-  final double margin;
-  final double padding;
   final Function(int) callBack;
   final Function(int) pageCall;
   final WheelLogic logic;
-  final WheelDataModel wheelDataModel;
+  final WheelDataModel data;
   final WheelPrimitiveWidget wheelPrimitiveWidget;
   final StreamController<List<double>> streamController;
   @override
@@ -33,18 +29,19 @@ class WheelExpandList extends StatelessWidget {
       onTapDown: (v) => {
         for (var i = 0; i < logic.originYList.length; i++)
           {
-            if (logic.originYList[i] > v.localPosition.dy + padding &&
-                logic.originYListTop[i] < v.localPosition.dy + padding &&
-                logic.originYListTop[logic.pageList[logic.valueSet]] - margin >
-                    v.localPosition.dy + padding)
+            if (logic.originYList[i] > v.localPosition.dy + data.padding &&
+                logic.originYListTop[i] < v.localPosition.dy + data.padding &&
+                logic.originYListTop[logic.pageList[logic.valueSet]] -
+                        data.margin >
+                    v.localPosition.dy + data.margin)
               {
-                callBack.call(logic.originYList.indexWhere(
-                    (element) => element > (v.localPosition.dy - padding))),
+                callBack.call(logic.originYList.indexWhere((element) =>
+                    element > (v.localPosition.dy - data.padding))),
               },
           },
       },
       child: Padding(
-        padding: EdgeInsets.all(padding),
+        padding: EdgeInsets.all(data.padding),
         child: SingleChildScrollView(
           child: SafeArea(
             child: SizedBox(
@@ -73,9 +70,9 @@ class WheelExpandList extends StatelessWidget {
                           return true;
                         },
                         child: ListWheelScrollView(
-                          controller: logic.c,
+                          controller: logic.controller,
                           renderChildrenOutsideViewport: false,
-                          diameterRatio: wheelDataModel.diameterRatio,
+                          diameterRatio: data.diameterRatio,
                           itemExtent: MediaQuery.of(context).size.width,
                           physics: const FixedExtentScrollPhysics(),
                           clipBehavior: Clip.antiAlias,
@@ -85,10 +82,10 @@ class WheelExpandList extends StatelessWidget {
                             logic.pageCount = index == 0 ? 1 : index + 1;
                           },
                           children: List<Widget>.generate(
-                            wheelDataModel.generate,
+                            data.generate,
                             (value) => ListView.builder(
                               scrollDirection: Axis.horizontal,
-                              itemCount: wheelDataModel.itemCount,
+                              itemCount: data.itemCount,
                               itemBuilder: (context, index) {
                                 return _widgetDesign(context, index);
                               },
@@ -112,7 +109,7 @@ class WheelExpandList extends StatelessWidget {
       children: [
         SizedBox(
           width: logic.heightList[index],
-          height: MediaQuery.of(context).size.width - margin,
+          height: MediaQuery.of(context).size.width - data.margin,
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Container(
@@ -120,7 +117,7 @@ class WheelExpandList extends StatelessWidget {
                 ..rotateZ(-90 * pi / 180)
                 ..setTranslationRaw(
                   0,
-                  MediaQuery.of(context).size.width - margin,
+                  MediaQuery.of(context).size.width - data.margin,
                   0,
                 ),
               child: Wrap(

@@ -1,16 +1,17 @@
-import 'package:flutter/src/animation/curves.dart';
-import 'package:flutter/src/widgets/list_wheel_scroll_view.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:wheel_expand_list/wheel_data_model.dart';
 import 'package:wheel_expand_list/wheel_logic.dart';
 
 class WheelDataSet implements WheelDataModel {
   WheelDataSet({
     required this.logic,
+    required this.slideActionFlg,
   });
   final WheelLogic logic;
+  final bool slideActionFlg;
   @override
   double get diameterRatio {
-    return logic.slideActionFlg ? 2 : 200;
+    return slideActionFlg ? 2 : 200;
   }
 
   @override
@@ -39,9 +40,33 @@ class WheelDataSet implements WheelDataModel {
   }
 
   @override
-  void startController(int index, FixedExtentScrollController controlelr,
-      int value, Cubic cubic) {
-    controlelr.animateToItem(index,
+  double get margin {
+    return logic.margin;
+  }
+
+  @override
+  set margin(double margin) {
+    margin = margin;
+  }
+
+  @override
+  double get padding {
+    return logic.margin / 2;
+  }
+
+  @override
+  set padding(double padding) {
+    padding = padding;
+  }
+
+  @override
+  void startController(
+    int index,
+    FixedExtentScrollController controller,
+    int value,
+    Cubic cubic,
+  ) {
+    controller.animateToItem(index,
         duration: Duration(milliseconds: value), curve: cubic);
   }
 }

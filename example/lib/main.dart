@@ -38,20 +38,31 @@ class _MyHomePageState extends State<MyHomePage> {
   var logic = WheelLogic();
   late WheelDataSet data;
   late WheelWidget wheelWidget;
+  var slideActionFlg = false;
 
-  int randomIntWithRange(int min, int max) {
+  int _randomIntWithRange(int min, int max) {
     int value = Random().nextInt(max - min);
     return value + min;
+  }
+
+  String _generateRandomString(int len) {
+    var r = Random();
+    const chars =
+        'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+    return List.generate(len.toInt(), (index) => chars[r.nextInt(chars.length)])
+        .join();
   }
 
   @override
   void initState() {
     /// Example
     for (var i = 1; i < 11; i++) {
-      logic.textList.add(_generateRandomString(i * randomIntWithRange(1, 100)));
-      logic.pageList.add(randomIntWithRange(1, 9));
+      logic.textList
+          .add(_generateRandomString(i * _randomIntWithRange(1, 100)));
+      logic.pageList.add(_randomIntWithRange(1, 9));
       logic.valueSet = logic.pageList.first;
     }
+
     super.initState();
 
     logic.initSet(
@@ -59,7 +70,10 @@ class _MyHomePageState extends State<MyHomePage> {
       fontSizeSet: 20.0,
     );
 
-    data = WheelDataSet(logic: logic);
+    data = WheelDataSet(
+      logic: logic,
+      slideActionFlg: slideActionFlg,
+    );
     wheelWidget = WheelWidget(
       marginSet: logic.margin,
       fontSizeSet: logic.fontSize,
@@ -71,11 +85,16 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('index${logic.indexCount}: page${logic.pageCount}'),
-        actions: [Row()],
         leading: IconButton(
           icon: const Icon(Icons.add),
           onPressed: () => {
-            logic.slideActionFlg = !logic.slideActionFlg,
+            setState(() {
+              slideActionFlg = !slideActionFlg;
+              data = WheelDataSet(
+                logic: logic,
+                slideActionFlg: slideActionFlg,
+              );
+            }),
           },
         ),
       ),
@@ -109,20 +128,25 @@ class _MyHomePageState extends State<MyHomePage> {
                         pageCall: (index) {
                           Future(() {
                             setState(() {
-                              data.startController(
-                                index,
-                                logic.c,
-                                300,
-                                Curves.easeIn,
-                              );
+                              slideActionFlg
+                                  ? data.startController(
+                                      index,
+                                      logic.controller,
+                                      300,
+                                      Curves.slowMiddle,
+                                    )
+                                  : data.startController(
+                                      index,
+                                      logic.controller,
+                                      300,
+                                      Curves.easeOut,
+                                    );
                             });
                           });
                         },
-                        wheelDataModel: data,
+                        data: data,
                         wheelPrimitiveWidget: wheelWidget,
                         streamController: logic.streamController,
-                        margin: logic.margin,
-                        padding: logic.margin / 2,
                         logic: logic,
                       ),
                     ],
@@ -136,13 +160,5 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
     );
-  }
-
-  String _generateRandomString(int len) {
-    var r = Random();
-    const chars =
-        'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
-    return List.generate(len.toInt(), (index) => chars[r.nextInt(chars.length)])
-        .join();
   }
 }
