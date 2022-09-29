@@ -131,14 +131,14 @@ class _MyHomePageState extends State<MyHomePage> {
                               slideActionFlg
                                   ? data.startController(
                                       index,
-                                      logic.controller,
                                       300,
+                                      logic.controller,
                                       Curves.slowMiddle,
                                     )
                                   : data.startController(
                                       index,
-                                      logic.controller,
                                       300,
+                                      logic.controller,
                                       Curves.easeOut,
                                     );
                             });

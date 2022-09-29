@@ -62,8 +62,8 @@ class WheelDataSet implements WheelDataModel {
   @override
   void startController(
     int index,
-    FixedExtentScrollController controller,
     int value,
+    FixedExtentScrollController controller,
     Cubic cubic,
   ) {
     controller.animateToItem(index,
