@@ -9,44 +9,47 @@ import 'package:wheel_expand_list/wheel_primitive_widget.dart';
 class WheelExpandList extends StatelessWidget {
   const WheelExpandList({
     super.key,
-    required this.callBack,
-    required this.logic,
     required this.pageCall,
-    required this.data,
+    required this.callBack,
+    required this.wheelLogic,
+    required this.wheelDataModel,
     required this.wheelPrimitiveWidget,
     required this.streamController,
   });
 
-  final Function(int) callBack;
   final Function(int) pageCall;
-  final WheelLogic logic;
-  final WheelDataModel data;
+  final Function(int) callBack;
+  final WheelLogic wheelLogic;
+  final WheelPrimitiveModel wheelDataModel;
   final WheelPrimitiveWidget wheelPrimitiveWidget;
   final StreamController<List<double>> streamController;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTapDown: (v) => {
-        for (var i = 0; i < logic.originYList.length; i++)
+        for (var i = 0; i < wheelLogic.originYList.length; i++)
           {
-            if (logic.originYList[i] > v.localPosition.dy + data.padding &&
-                logic.originYListTop[i] < v.localPosition.dy + data.padding &&
-                logic.originYListTop[logic.pageList[logic.valueSet]] -
-                        data.margin >
-                    v.localPosition.dy + data.margin)
+            if (wheelLogic.originYList[i] >
+                    v.localPosition.dy + wheelDataModel.padding &&
+                wheelLogic.originYListTop[i] <
+                    v.localPosition.dy + wheelDataModel.padding &&
+                wheelLogic.originYListTop[
+                            wheelLogic.pageList[wheelLogic.valueSet]] -
+                        wheelDataModel.margin >
+                    v.localPosition.dy + wheelDataModel.margin)
               {
-                callBack.call(logic.originYList.indexWhere((element) =>
-                    element > (v.localPosition.dy - data.padding))),
+                callBack.call(wheelLogic.originYList.indexWhere((element) =>
+                    element > (v.localPosition.dy - wheelDataModel.padding))),
               },
           },
       },
       child: Padding(
-        padding: EdgeInsets.all(data.padding),
+        padding: EdgeInsets.all(wheelDataModel.padding),
         child: SingleChildScrollView(
           child: SafeArea(
             child: SizedBox(
-              height: logic.heightList
-                  .getRange(0, logic.pageCount)
+              height: wheelLogic.heightList
+                  .getRange(0, wheelLogic.pageCount)
                   .toList()
                   .reduce((a, b) => a + b),
               child: Column(
@@ -58,34 +61,35 @@ class WheelExpandList extends StatelessWidget {
                         onNotification: (notificationInfo) {
                           if (notificationInfo is ScrollEndNotification) {
                             Future(() {
-                              logic.valueSet = logic.valueSetReady + 1;
+                              wheelLogic.valueSet =
+                                  wheelLogic.valueSetReady + 1;
                               streamController.sink.add([]);
                             });
                           } else if (notificationInfo
                               is ScrollStartNotification) {
                             Future(() {
-                              logic.indexCount = 0;
+                              wheelLogic.indexCount = 0;
                             });
                           }
                           return true;
                         },
                         child: ListWheelScrollView(
-                          controller: logic.controller,
+                          controller: wheelLogic.controller,
                           renderChildrenOutsideViewport: false,
-                          diameterRatio: data.diameterRatio,
+                          diameterRatio: wheelDataModel.diameterRatio,
                           itemExtent: MediaQuery.of(context).size.width,
                           physics: const FixedExtentScrollPhysics(),
                           clipBehavior: Clip.antiAlias,
                           onSelectedItemChanged: (index) {
                             pageCall.call(index);
-                            logic.valueSetReady = index;
-                            logic.pageCount = index == 0 ? 1 : index + 1;
+                            wheelLogic.valueSetReady = index;
+                            wheelLogic.pageCount = index == 0 ? 1 : index + 1;
                           },
                           children: List<Widget>.generate(
-                            data.generate,
+                            wheelDataModel.generate,
                             (value) => ListView.builder(
                               scrollDirection: Axis.horizontal,
-                              itemCount: data.itemCount,
+                              itemCount: wheelDataModel.itemCount,
                               itemBuilder: (context, index) {
                                 return _widgetDesign(context, index);
                               },
@@ -108,8 +112,8 @@ class WheelExpandList extends StatelessWidget {
     return Row(
       children: [
         SizedBox(
-          width: logic.heightList[index],
-          height: MediaQuery.of(context).size.width - data.margin,
+          width: wheelLogic.heightList[index],
+          height: MediaQuery.of(context).size.width - wheelDataModel.margin,
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Container(
@@ -117,14 +121,14 @@ class WheelExpandList extends StatelessWidget {
                 ..rotateZ(-90 * pi / 180)
                 ..setTranslationRaw(
                   0,
-                  MediaQuery.of(context).size.width - data.margin,
+                  MediaQuery.of(context).size.width - wheelDataModel.margin,
                   0,
                 ),
               child: Wrap(
                 children: [
                   wheelPrimitiveWidget.primitiveWidget(
                     context,
-                    logic.textList[index],
+                    wheelLogic.textList[index],
                     0,
                     0,
                   ),

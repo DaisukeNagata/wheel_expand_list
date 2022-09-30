@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:wheel_expand_list/wheel_data_model.dart';
 import 'package:wheel_expand_list/wheel_logic.dart';
 
-class WheelDataSet implements WheelDataModel {
+class WheelDataSet implements WheelPrimitiveModel {
   WheelDataSet({
     required this.logic,
     required this.slideActionFlg,

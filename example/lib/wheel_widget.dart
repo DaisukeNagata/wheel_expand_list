@@ -42,8 +42,8 @@ class WheelWidget implements WheelPrimitiveWidget {
   * */
   @override
   Widget loopWidget(
-    List<GlobalKey> keys,
     BuildContext context,
+    List<GlobalKey> keys,
     List<String> textList,
     double margin,
     double fontSize,

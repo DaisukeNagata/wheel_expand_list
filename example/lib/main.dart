@@ -35,8 +35,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var logic = WheelLogic();
-  late WheelDataSet data;
+  var wheelLogic = WheelLogic();
+  late WheelDataSet wheelDataSet;
   late WheelWidget wheelWidget;
   var slideActionFlg = false;
 
@@ -57,26 +57,26 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     /// Example
     for (var i = 1; i < 11; i++) {
-      logic.textList
+      wheelLogic.textList
           .add(_generateRandomString(i * _randomIntWithRange(1, 100)));
-      logic.pageList.add(_randomIntWithRange(1, 9));
-      logic.valueSet = logic.pageList.first;
+      wheelLogic.pageList.add(_randomIntWithRange(1, 9));
+      wheelLogic.valueSet = wheelLogic.pageList.first;
     }
 
     super.initState();
 
-    logic.initSet(
+    wheelLogic.initSet(
       marginSet: 50.0,
       fontSizeSet: 20.0,
     );
 
-    data = WheelDataSet(
-      logic: logic,
+    wheelDataSet = WheelDataSet(
+      logic: wheelLogic,
       slideActionFlg: slideActionFlg,
     );
     wheelWidget = WheelWidget(
-      marginSet: logic.margin,
-      fontSizeSet: logic.fontSize,
+      marginSet: wheelLogic.margin,
+      fontSizeSet: wheelLogic.fontSize,
     );
   }
 
@@ -84,14 +84,15 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('index${logic.indexCount}: page${logic.pageCount}'),
+        title:
+            Text('index${wheelLogic.indexCount}: page${wheelLogic.pageCount}'),
         leading: IconButton(
           icon: const Icon(Icons.add),
           onPressed: () => {
             setState(() {
               slideActionFlg = !slideActionFlg;
-              data = WheelDataSet(
-                logic: logic,
+              wheelDataSet = WheelDataSet(
+                logic: wheelLogic,
                 slideActionFlg: slideActionFlg,
               );
             }),
@@ -101,14 +102,14 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Stack(
         children: [
           wheelWidget.loopWidget(
-            logic.globalKeys,
             context,
-            logic.textList,
-            logic.margin,
-            logic.fontSize,
+            wheelLogic.globalKeys,
+            wheelLogic.textList,
+            wheelLogic.margin,
+            wheelLogic.fontSize,
           ),
           StreamBuilder(
-            stream: logic.streamController.stream,
+            stream: wheelLogic.streamController.stream,
             builder: (
               BuildContext context,
               AsyncSnapshot<List<double>> snapshot,
@@ -121,7 +122,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         callBack: (index) {
                           Future(() {
                             setState(() {
-                              logic.indexCount = index;
+                              wheelLogic.indexCount = index;
                             });
                           });
                         },
@@ -129,25 +130,25 @@ class _MyHomePageState extends State<MyHomePage> {
                           Future(() {
                             setState(() {
                               slideActionFlg
-                                  ? data.startController(
+                                  ? wheelDataSet.startController(
                                       index,
                                       300,
-                                      logic.controller,
+                                      wheelLogic.controller,
                                       Curves.slowMiddle,
                                     )
-                                  : data.startController(
+                                  : wheelDataSet.startController(
                                       index,
                                       300,
-                                      logic.controller,
+                                      wheelLogic.controller,
                                       Curves.easeOut,
                                     );
                             });
                           });
                         },
-                        data: data,
+                        wheelDataModel: wheelDataSet,
                         wheelPrimitiveWidget: wheelWidget,
-                        streamController: logic.streamController,
-                        logic: logic,
+                        streamController: wheelLogic.streamController,
+                        wheelLogic: wheelLogic,
                       ),
                     ],
                   ),

@@ -1,7 +1,7 @@
 import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 
-class WheelDataModel {
+class WheelPrimitiveModel {
   int generate = 0;
   int itemCount = 0;
   double margin = 0;
