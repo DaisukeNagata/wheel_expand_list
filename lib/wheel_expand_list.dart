@@ -14,7 +14,6 @@ class WheelExpandList extends StatelessWidget {
     required this.wheelLogic,
     required this.wheelDataModel,
     required this.wheelPrimitiveWidget,
-    required this.streamController,
   });
 
   final Function(int) pageCall;
@@ -22,26 +21,26 @@ class WheelExpandList extends StatelessWidget {
   final WheelLogic wheelLogic;
   final WheelPrimitiveModel wheelDataModel;
   final WheelPrimitiveWidget wheelPrimitiveWidget;
-  final StreamController<List<double>> streamController;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTapDown: (v) => {
+        /// List area allows tapping
         for (var i = 0; i < wheelLogic.originYList.length; i++)
           {
             if (wheelLogic.originYList[i] >
                     v.localPosition.dy + wheelDataModel.padding &&
                 wheelLogic.originYListTop[i] <
                     v.localPosition.dy + wheelDataModel.padding &&
-                wheelLogic.originYListTop[
-                            wheelLogic.pageList[wheelLogic.valueSet]] -
-                        wheelDataModel.margin >
-                    v.localPosition.dy + wheelDataModel.margin)
+                wheelLogic.originYListTop[wheelLogic.pageCount] >
+                    (v.localPosition.dy +
+                        wheelDataModel.margin +
+                        wheelDataModel.padding))
               {
                 callBack.call(wheelLogic.originYList.indexWhere((element) =>
                     element > (v.localPosition.dy - wheelDataModel.padding))),
               },
-          },
+          }
       },
       child: Padding(
         padding: EdgeInsets.all(wheelDataModel.padding),
@@ -63,7 +62,7 @@ class WheelExpandList extends StatelessWidget {
                             Future(() {
                               wheelLogic.valueSet =
                                   wheelLogic.valueSetReady + 1;
-                              streamController.sink.add([]);
+                              wheelLogic.streamController.sink.add([]);
                             });
                           } else if (notificationInfo
                               is ScrollStartNotification) {

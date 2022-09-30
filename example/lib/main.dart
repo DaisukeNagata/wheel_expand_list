@@ -147,7 +147,6 @@ class _MyHomePageState extends State<MyHomePage> {
                         },
                         wheelDataModel: wheelDataSet,
                         wheelPrimitiveWidget: wheelWidget,
-                        streamController: wheelLogic.streamController,
                         wheelLogic: wheelLogic,
                       ),
                     ],

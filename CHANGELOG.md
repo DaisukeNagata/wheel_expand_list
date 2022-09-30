@@ -76,4 +76,4 @@
 
 ## 0.0.39
 
-* Refactor
+* Update Logic -> refactor and  tap logic update
