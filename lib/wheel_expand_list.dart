@@ -24,7 +24,7 @@ class WheelExpandList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTapDown: (v) => {
+      onTapUp: (v) => {
         /// List area allows tapping
         for (var i = 0; i < wheelLogic.originYList.length; i++)
           {

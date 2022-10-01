@@ -77,3 +77,7 @@
 ## 0.0.39
 
 * Update Logic -> refactor and  tap logic update
+
+## 0.0.4
+
+* onTapDown -> onTapUp
