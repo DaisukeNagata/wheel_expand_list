@@ -85,3 +85,7 @@
 ## 0.0.41
 
 * Refactor -> Transfer function to reset index during horizontal scrolling
+
+## 0.0.42
+
+* Update Logic -> variable data

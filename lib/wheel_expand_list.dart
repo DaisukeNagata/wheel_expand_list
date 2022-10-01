@@ -32,7 +32,7 @@ class WheelExpandList extends StatelessWidget {
                     v.localPosition.dy + wheelDataModel.padding &&
                 wheelLogic.originYListTop[i] <
                     v.localPosition.dy + wheelDataModel.padding &&
-                wheelLogic.originYListTop[wheelLogic.pageCount] >
+                wheelLogic.originYListTop[wheelDataModel.itemCount] >
                     (v.localPosition.dy +
                         wheelDataModel.margin +
                         wheelDataModel.padding))
@@ -48,7 +48,7 @@ class WheelExpandList extends StatelessWidget {
           child: SafeArea(
             child: SizedBox(
               height: wheelLogic.heightList
-                  .getRange(0, wheelLogic.pageCount)
+                  .getRange(0, wheelDataModel.itemCount)
                   .toList()
                   .reduce((a, b) => a + b),
               child: Column(

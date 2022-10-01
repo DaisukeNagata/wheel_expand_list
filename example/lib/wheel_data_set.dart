@@ -31,7 +31,7 @@ class WheelDataSet implements WheelPrimitiveModel {
 
   @override
   int get itemCount {
-    return logic.valueSet;
+    return logic.pageList[logic.pageCount];
   }
 
   @override
