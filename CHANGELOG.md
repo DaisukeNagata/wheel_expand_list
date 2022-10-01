@@ -81,3 +81,7 @@
 ## 0.0.4
 
 * onTapDown -> onTapUp
+
+## 0.0.41
+
+* Refactor -> Transfer function to reset index during horizontal scrolling

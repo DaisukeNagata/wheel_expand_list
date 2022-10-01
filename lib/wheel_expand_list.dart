@@ -64,11 +64,6 @@ class WheelExpandList extends StatelessWidget {
                                   wheelLogic.valueSetReady + 1;
                               wheelLogic.streamController.sink.add([]);
                             });
-                          } else if (notificationInfo
-                              is ScrollStartNotification) {
-                            Future(() {
-                              wheelLogic.indexCount = 0;
-                            });
                           }
                           return true;
                         },

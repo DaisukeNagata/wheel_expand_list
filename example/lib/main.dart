@@ -129,6 +129,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         pageCall: (index) {
                           Future(() {
                             setState(() {
+                              wheelLogic.indexCount = 0;
                               slideActionFlg
                                   ? wheelDataSet.startController(
                                       index,
