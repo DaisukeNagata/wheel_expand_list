@@ -53,6 +53,45 @@ class _MyHomePageState extends State<MyHomePage> {
         .join();
   }
 
+  /// Example
+  void _updateData() {
+    setState(() {
+      wheelLogic.textList.clear();
+
+      for (var i = 1; i < 11; i++) {
+        wheelLogic.textList
+            .add(_generateRandomString(i * _randomIntWithRange(1, 100)));
+        wheelLogic.pageList.add(_randomIntWithRange(1, 9));
+        wheelLogic.valueSet = wheelLogic.pageList.first;
+      }
+      wheelLogic.fontSize = 25;
+      wheelLogic.margin = 50.0;
+      wheelDataSet = WheelDataSet(
+        logic: wheelLogic,
+        slideActionFlg: slideActionFlg,
+      );
+      wheelWidget = WheelWidget(
+        marginSet: wheelLogic.margin,
+        fontSizeSet: wheelLogic.fontSize,
+      );
+      Future.delayed(Duration(milliseconds: 100), () {
+        wheelLogic.addHeightValue(
+            wheelLogic.globalKeys, wheelDataSet.margin.truncate());
+      });
+    });
+  }
+
+  Widget _rightButton() {
+    return IconButton(
+      icon: const Icon(Icons.add),
+      onPressed: () => {
+        setState(() {
+          _updateData();
+        }),
+      },
+    );
+  }
+
   @override
   void initState() {
     /// Example
@@ -86,6 +125,9 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title:
             Text('index${wheelLogic.indexCount}: page${wheelLogic.pageCount}'),
+        actions: [
+          _rightButton(),
+        ],
         leading: IconButton(
           icon: const Icon(Icons.add),
           onPressed: () => {
@@ -127,24 +169,20 @@ class _MyHomePageState extends State<MyHomePage> {
                           });
                         },
                         pageCall: (index) {
-                          Future(() {
-                            setState(() {
-                              wheelLogic.indexCount = 0;
-                              slideActionFlg
-                                  ? wheelDataSet.startController(
-                                      index,
-                                      300,
-                                      wheelLogic.controller,
-                                      Curves.slowMiddle,
-                                    )
-                                  : wheelDataSet.startController(
-                                      index,
-                                      300,
-                                      wheelLogic.controller,
-                                      Curves.easeOut,
-                                    );
-                            });
-                          });
+                          wheelLogic.indexCount = 0;
+                          slideActionFlg
+                              ? wheelDataSet.startController(
+                                  index,
+                                  300,
+                                  wheelLogic.controller,
+                                  Curves.slowMiddle,
+                                )
+                              : wheelDataSet.startController(
+                                  index,
+                                  300,
+                                  wheelLogic.controller,
+                                  Curves.easeOut,
+                                );
                         },
                         wheelDataModel: wheelDataSet,
                         wheelPrimitiveWidget: wheelWidget,

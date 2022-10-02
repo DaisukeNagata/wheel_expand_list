@@ -25,6 +25,7 @@ class WheelLogic {
   }) {
     margin = marginSet;
     fontSize = fontSizeSet;
+    globalKeys.clear();
     for (final _ in textList) {
       globalKeys.add(GlobalKey());
     }

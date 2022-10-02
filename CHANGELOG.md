@@ -89,3 +89,7 @@
 ## 0.0.42
 
 * Update Logic -> variable data
+
+## 0.0.43
+
+* Update Example

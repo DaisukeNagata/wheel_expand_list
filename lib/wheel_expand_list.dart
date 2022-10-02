@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
@@ -59,11 +58,8 @@ class WheelExpandList extends StatelessWidget {
                       child: NotificationListener(
                         onNotification: (notificationInfo) {
                           if (notificationInfo is ScrollEndNotification) {
-                            Future(() {
-                              wheelLogic.valueSet =
-                                  wheelLogic.valueSetReady + 1;
-                              wheelLogic.streamController.sink.add([]);
-                            });
+                            wheelLogic.valueSet = wheelLogic.valueSetReady + 1;
+                            wheelLogic.streamController.sink.add([]);
                           }
                           return true;
                         },
