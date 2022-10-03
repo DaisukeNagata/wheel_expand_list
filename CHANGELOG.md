@@ -101,3 +101,7 @@
 ## 0.0.45
 
 * Update -> readme and callBack logic is update
+
+## 0.0.46
+
+* Update Example

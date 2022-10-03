@@ -75,7 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
         marginSet: wheelLogic.margin,
         fontSizeSet: wheelLogic.fontSize,
       );
-      Future.delayed(Duration(milliseconds: 100), () {
+      Future.delayed(const Duration(milliseconds: 100), () {
         wheelLogic.addHeightValue(
             wheelLogic.globalKeys, wheelDataSet.margin.truncate());
       });
@@ -98,7 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
         marginSet: wheelLogic.margin,
         fontSizeSet: wheelLogic.fontSize,
       );
-      Future.delayed(Duration(milliseconds: 100), () {
+      Future.delayed(const Duration(milliseconds: 100), () {
         wheelLogic.addHeightValue(
             wheelLogic.globalKeys, wheelDataSet.margin.truncate());
       });
@@ -119,8 +119,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget _rightOfLeftButton() {
     return IconButton(
       icon: wheelDataSet.swipeType == WheelSwipeType.right
-          ? Icon(Icons.keyboard_arrow_right)
-          : Icon(Icons.keyboard_arrow_left),
+          ? const Icon(Icons.keyboard_arrow_right)
+          : const Icon(Icons.keyboard_arrow_left),
       onPressed: () => {
         setState(() {
           _updateSwipeType();
@@ -142,7 +142,7 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
 
     wheelLogic.initSet(
-      marginSet: 50.0,
+      marginSet: 0.0,
       fontSizeSet: 20.0,
     );
 
