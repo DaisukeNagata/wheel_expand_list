@@ -73,7 +73,7 @@ class WheelDataSet implements WheelPrimitiveModel {
 
   @override
   WheelSwipeType get swipeType {
-    return WheelSwipeType.right;
+    return logic.swipeType;
   }
 
   @override

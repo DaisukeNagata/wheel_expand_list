@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:wheel_expand_list/wheel_global_key_ex.dart';
+import 'package:wheel_expand_list/wheel_swipe_type.dart';
 
 class WheelLogic {
   int valueSet = 1;
@@ -16,6 +17,7 @@ class WheelLogic {
   List<double> originYList = [];
   List<GlobalKey> globalKeys = [];
   List<double> originYListTop = [];
+  WheelSwipeType swipeType = WheelSwipeType.right;
   var controller = FixedExtentScrollController(initialItem: 0);
   var streamController = StreamController<List<double>>();
 

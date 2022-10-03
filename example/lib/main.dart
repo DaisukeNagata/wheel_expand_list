@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:wheel_expand_list/wheel_expand_list.dart';
 import 'package:wheel_expand_list/wheel_logic.dart';
+import 'package:wheel_expand_list/wheel_swipe_type.dart';
 import 'package:wheel_expand_list_example/wheel_data_set.dart';
 import 'package:wheel_expand_list_example/wheel_widget.dart';
 
@@ -81,12 +82,48 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  Widget _rightButton() {
+  /// Example
+  void _updateSwipeType() {
+    setState(() {
+      if (wheelDataSet.swipeType == WheelSwipeType.left) {
+        wheelLogic.swipeType = WheelSwipeType.right;
+      } else {
+        wheelLogic.swipeType = WheelSwipeType.left;
+      }
+      wheelDataSet = WheelDataSet(
+        logic: wheelLogic,
+        slideActionFlg: slideActionFlg,
+      );
+      wheelWidget = WheelWidget(
+        marginSet: wheelLogic.margin,
+        fontSizeSet: wheelLogic.fontSize,
+      );
+      Future.delayed(Duration(milliseconds: 100), () {
+        wheelLogic.addHeightValue(
+            wheelLogic.globalKeys, wheelDataSet.margin.truncate());
+      });
+    });
+  }
+
+  Widget _rightOfRightButton() {
     return IconButton(
       icon: const Icon(Icons.add),
       onPressed: () => {
         setState(() {
           _updateData();
+        }),
+      },
+    );
+  }
+
+  Widget _rightOfLeftButton() {
+    return IconButton(
+      icon: wheelDataSet.swipeType == WheelSwipeType.right
+          ? Icon(Icons.keyboard_arrow_right)
+          : Icon(Icons.keyboard_arrow_left),
+      onPressed: () => {
+        setState(() {
+          _updateSwipeType();
         }),
       },
     );
@@ -126,7 +163,12 @@ class _MyHomePageState extends State<MyHomePage> {
         title:
             Text('index${wheelLogic.indexCount}: page${wheelLogic.pageCount}'),
         actions: [
-          _rightButton(),
+          Row(
+            children: [
+              _rightOfLeftButton(),
+              _rightOfRightButton(),
+            ],
+          ),
         ],
         leading: IconButton(
           icon: const Icon(Icons.add),
@@ -168,8 +210,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             });
                           });
                         },
-                        pageCall: (index) {
-                          wheelLogic.indexCount = 0;
+                        pageStart: (index) {
                           slideActionFlg
                               ? wheelDataSet.startController(
                                   index,
@@ -183,6 +224,14 @@ class _MyHomePageState extends State<MyHomePage> {
                                   wheelLogic.controller,
                                   Curves.easeOut,
                                 );
+                        },
+                        pageEnd: (value) {
+                          setState(() {
+                            Future(() {
+                              wheelLogic.indexCount = 0;
+                              wheelLogic.pageCount = value;
+                            });
+                          });
                         },
                         wheelDataModel: wheelDataSet,
                         wheelPrimitiveWidget: wheelWidget,

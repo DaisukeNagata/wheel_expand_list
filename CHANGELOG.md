@@ -97,3 +97,7 @@
 ## 0.0.44
 
 * Update Logic -> add direction to swipe
+
+## 0.0.45
+
+* Update -> readme and callBack logic is update

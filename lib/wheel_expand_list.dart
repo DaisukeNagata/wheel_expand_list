@@ -9,14 +9,16 @@ import 'package:wheel_expand_list/wheel_swipe_type.dart';
 class WheelExpandList extends StatelessWidget {
   const WheelExpandList({
     super.key,
-    required this.pageCall,
+    required this.pageStart,
+    required this.pageEnd,
     required this.callBack,
     required this.wheelLogic,
     required this.wheelDataModel,
     required this.wheelPrimitiveWidget,
   });
 
-  final Function(int) pageCall;
+  final Function(int) pageStart;
+  final Function(int) pageEnd;
   final Function(int) callBack;
   final WheelLogic wheelLogic;
   final WheelPrimitiveModel wheelDataModel;
@@ -63,6 +65,7 @@ class WheelExpandList extends StatelessWidget {
                         onNotification: (notificationInfo) {
                           if (notificationInfo is ScrollEndNotification) {
                             wheelLogic.valueSet = wheelLogic.valueSetReady + 1;
+                            pageEnd.call(wheelLogic.valueSet);
                             wheelLogic.streamController.sink.add([]);
                           }
                           return true;
@@ -75,7 +78,7 @@ class WheelExpandList extends StatelessWidget {
                           physics: const FixedExtentScrollPhysics(),
                           clipBehavior: Clip.antiAlias,
                           onSelectedItemChanged: (index) {
-                            pageCall.call(index);
+                            pageStart.call(index);
                             wheelLogic.valueSetReady = index;
                             wheelLogic.pageCount = index == 0 ? 1 : index + 1;
                           },
