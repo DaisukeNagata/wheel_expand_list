@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:wheel_expand_list/wheel_data_model.dart';
 import 'package:wheel_expand_list/wheel_logic.dart';
 import 'package:wheel_expand_list/wheel_primitive_widget.dart';
+import 'package:wheel_expand_list/wheel_swipe_type.dart';
 
 class WheelExpandList extends StatelessWidget {
   const WheelExpandList({
@@ -54,7 +55,10 @@ class WheelExpandList extends StatelessWidget {
                 children: [
                   Flexible(
                     child: RotatedBox(
-                      quarterTurns: 1,
+                      quarterTurns:
+                          wheelDataModel.swipeType == WheelSwipeType.left
+                              ? 1
+                              : 3,
                       child: NotificationListener(
                         onNotification: (notificationInfo) {
                           if (notificationInfo is ScrollEndNotification) {
@@ -108,10 +112,17 @@ class WheelExpandList extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             child: Container(
               transform: Matrix4.identity()
-                ..rotateZ(-90 * pi / 180)
+                ..rotateZ(wheelDataModel.swipeType == WheelSwipeType.left
+                    ? -90 * pi / 180
+                    : 90 * pi / 180)
                 ..setTranslationRaw(
-                  0,
-                  MediaQuery.of(context).size.width - wheelDataModel.margin,
+                  wheelDataModel.swipeType == WheelSwipeType.left
+                      ? 0
+                      : wheelLogic.heightList[index],
+                  wheelDataModel.swipeType == WheelSwipeType.left
+                      ? MediaQuery.of(context).size.width -
+                          wheelDataModel.margin
+                      : 0,
                   0,
                 ),
               child: Wrap(

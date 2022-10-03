@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:wheel_expand_list/wheel_data_model.dart';
 import 'package:wheel_expand_list/wheel_logic.dart';
+import 'package:wheel_expand_list/wheel_swipe_type.dart';
 
 class WheelDataSet implements WheelPrimitiveModel {
   WheelDataSet({
@@ -68,5 +69,15 @@ class WheelDataSet implements WheelPrimitiveModel {
   ) {
     controller.animateToItem(index,
         duration: Duration(milliseconds: value), curve: cubic);
+  }
+
+  @override
+  WheelSwipeType get swipeType {
+    return WheelSwipeType.right;
+  }
+
+  @override
+  set swipeType(WheelSwipeType swipeType) {
+    swipeType = swipeType;
   }
 }

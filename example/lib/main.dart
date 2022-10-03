@@ -64,8 +64,8 @@ class _MyHomePageState extends State<MyHomePage> {
         wheelLogic.pageList.add(_randomIntWithRange(1, 9));
         wheelLogic.valueSet = wheelLogic.pageList.first;
       }
-      wheelLogic.fontSize = 25;
-      wheelLogic.margin = 50.0;
+      wheelLogic.fontSize = _randomIntWithRange(10, 50).toDouble();
+      wheelLogic.margin = _randomIntWithRange(50, 200).toDouble();
       wheelDataSet = WheelDataSet(
         logic: wheelLogic,
         slideActionFlg: slideActionFlg,

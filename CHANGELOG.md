@@ -93,3 +93,7 @@
 ## 0.0.43
 
 * Update Example
+
+## 0.0.44
+
+* Update Logic -> add direction to swipe
