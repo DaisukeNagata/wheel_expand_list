@@ -103,6 +103,14 @@ class _MyHomePageState extends State<MyHomePage> {
         logic: wheelLogic,
         slideActionFlg: slideActionFlg,
       );
+      wheelWidget = WheelWidget(
+        marginSet: wheelLogic.margin,
+        fontSizeSet: wheelLogic.fontSize,
+      );
+      Future.delayed(const Duration(milliseconds: 100), () {
+        wheelLogic.addHeightValue(
+            wheelLogic.globalKeys, wheelDataSet.margin.truncate());
+      });
     });
   }
 
