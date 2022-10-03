@@ -2,6 +2,22 @@
 
 https://pub.dev/packages/wheel_expand_list
 
+
+## Environment
+
+```
+  sdk: '>=2.18.1 <3.0.0'
+  flutter: ">=2.5.0"
+```
+
+## Example
+
+| | | | 
+|---|---|---|
+| <img width="250" src="https://user-images.githubusercontent.com/16457165/193484605-bca0cda8-933e-4947-a945-4a45cccb9e04.gif">|<img width="250" src="https://user-images.githubusercontent.com/16457165/193484616-84febeae-dd3b-45fd-b14d-69c0a22c702d.gif">|<img width="250" src="https://user-images.githubusercontent.com/16457165/193484744-896eb155-b3ca-4b12-bf27-e61810f9ae0f.gif">|
+
+
+
 ## Construction
 
 ### Your favorite design will be reflected in the Widget.
@@ -89,11 +105,6 @@ https://pub.dev/packages/wheel_expand_list
 ```
 
 
-## Example
-
-||  
-|-| 
-|<img width="300" src="https://user-images.githubusercontent.com/16457165/193065626-2ac127e0-39cf-49f9-ab43-927e44b1a844.gif">|
 
 
 
