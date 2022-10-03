@@ -44,60 +44,58 @@ class WheelExpandList extends StatelessWidget {
               },
           }
       },
-      child: Padding(
-        padding: EdgeInsets.all(wheelDataModel.padding),
+      child: Transform.rotate(
+        angle: wheelDataModel.swipeType == WheelSwipeType.left
+            ? 0 * pi / 180
+            : 180 * (pi / 180),
         child: SingleChildScrollView(
-          child: SafeArea(
-            child: SizedBox(
-              height: wheelLogic.heightList
-                  .getRange(0, wheelDataModel.itemCount)
-                  .toList()
-                  .reduce((a, b) => a + b),
-              child: Column(
-                children: [
-                  Flexible(
-                    child: RotatedBox(
-                      quarterTurns:
-                          wheelDataModel.swipeType == WheelSwipeType.left
-                              ? 1
-                              : 3,
-                      child: NotificationListener(
-                        onNotification: (notificationInfo) {
-                          if (notificationInfo is ScrollEndNotification) {
-                            wheelLogic.valueSet = wheelLogic.valueSetReady + 1;
-                            pageEnd.call(wheelLogic.valueSet);
-                            wheelLogic.streamController.sink.add([]);
-                          }
-                          return true;
+          child: SizedBox(
+            height: wheelLogic.heightList
+                .getRange(0, wheelDataModel.itemCount)
+                .toList()
+                .reduce((a, b) => a + b),
+            child: Column(
+              children: [
+                Flexible(
+                  child: RotatedBox(
+                    quarterTurns:
+                        wheelDataModel.swipeType == WheelSwipeType.left ? 1 : 3,
+                    child: NotificationListener(
+                      onNotification: (notificationInfo) {
+                        if (notificationInfo is ScrollEndNotification) {
+                          wheelLogic.valueSet = wheelLogic.valueSetReady + 1;
+                          pageEnd.call(wheelLogic.valueSet);
+                          wheelLogic.streamController.sink.add([]);
+                        }
+                        return true;
+                      },
+                      child: ListWheelScrollView(
+                        controller: wheelLogic.controller,
+                        renderChildrenOutsideViewport: false,
+                        diameterRatio: wheelDataModel.diameterRatio,
+                        itemExtent: MediaQuery.of(context).size.width,
+                        physics: const FixedExtentScrollPhysics(),
+                        clipBehavior: Clip.antiAlias,
+                        onSelectedItemChanged: (index) {
+                          pageStart.call(index);
+                          wheelLogic.valueSetReady = index;
+                          wheelLogic.pageCount = index == 0 ? 1 : index + 1;
                         },
-                        child: ListWheelScrollView(
-                          controller: wheelLogic.controller,
-                          renderChildrenOutsideViewport: false,
-                          diameterRatio: wheelDataModel.diameterRatio,
-                          itemExtent: MediaQuery.of(context).size.width,
-                          physics: const FixedExtentScrollPhysics(),
-                          clipBehavior: Clip.antiAlias,
-                          onSelectedItemChanged: (index) {
-                            pageStart.call(index);
-                            wheelLogic.valueSetReady = index;
-                            wheelLogic.pageCount = index == 0 ? 1 : index + 1;
-                          },
-                          children: List<Widget>.generate(
-                            wheelDataModel.generate,
-                            (value) => ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: wheelDataModel.itemCount,
-                              itemBuilder: (context, index) {
-                                return _widgetDesign(context, index);
-                              },
-                            ),
+                        children: List<Widget>.generate(
+                          wheelDataModel.generate,
+                          (value) => ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: wheelDataModel.itemCount,
+                            itemBuilder: (context, index) {
+                              return _widgetDesign(context, index);
+                            },
                           ),
                         ),
                       ),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
@@ -115,17 +113,10 @@ class WheelExpandList extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             child: Container(
               transform: Matrix4.identity()
-                ..rotateZ(wheelDataModel.swipeType == WheelSwipeType.left
-                    ? -90 * pi / 180
-                    : 90 * pi / 180)
+                ..rotateZ(-90 * pi / 180)
                 ..setTranslationRaw(
-                  wheelDataModel.swipeType == WheelSwipeType.left
-                      ? 0
-                      : wheelLogic.heightList[index],
-                  wheelDataModel.swipeType == WheelSwipeType.left
-                      ? MediaQuery.of(context).size.width -
-                          wheelDataModel.margin
-                      : 0,
+                  wheelDataModel.padding,
+                  MediaQuery.of(context).size.width - wheelDataModel.margin,
                   0,
                 ),
               child: Wrap(

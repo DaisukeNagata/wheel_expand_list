@@ -55,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   /// Example
-  void _updateData() {
+  void _updateData(bool flg) {
     setState(() {
       wheelLogic.textList.clear();
 
@@ -67,6 +67,13 @@ class _MyHomePageState extends State<MyHomePage> {
       }
       wheelLogic.fontSize = _randomIntWithRange(10, 50).toDouble();
       wheelLogic.margin = _randomIntWithRange(50, 200).toDouble();
+      if (flg) {
+        wheelLogic.initSet(
+          marginSet: wheelLogic.fontSize,
+          fontSizeSet: wheelLogic.margin,
+        );
+      }
+
       wheelDataSet = WheelDataSet(
         logic: wheelLogic,
         slideActionFlg: slideActionFlg,
@@ -75,10 +82,12 @@ class _MyHomePageState extends State<MyHomePage> {
         marginSet: wheelLogic.margin,
         fontSizeSet: wheelLogic.fontSize,
       );
-      Future.delayed(const Duration(milliseconds: 100), () {
-        wheelLogic.addHeightValue(
-            wheelLogic.globalKeys, wheelDataSet.margin.truncate());
-      });
+      if (!flg) {
+        Future.delayed(const Duration(milliseconds: 100), () {
+          wheelLogic.addHeightValue(
+              wheelLogic.globalKeys, wheelDataSet.margin.truncate());
+        });
+      }
     });
   }
 
@@ -94,14 +103,6 @@ class _MyHomePageState extends State<MyHomePage> {
         logic: wheelLogic,
         slideActionFlg: slideActionFlg,
       );
-      wheelWidget = WheelWidget(
-        marginSet: wheelLogic.margin,
-        fontSizeSet: wheelLogic.fontSize,
-      );
-      Future.delayed(const Duration(milliseconds: 100), () {
-        wheelLogic.addHeightValue(
-            wheelLogic.globalKeys, wheelDataSet.margin.truncate());
-      });
     });
   }
 
@@ -110,7 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
       icon: const Icon(Icons.add),
       onPressed: () => {
         setState(() {
-          _updateData();
+          _updateData(false);
         }),
       },
     );
@@ -119,8 +120,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget _rightOfLeftButton() {
     return IconButton(
       icon: wheelDataSet.swipeType == WheelSwipeType.right
-          ? const Icon(Icons.keyboard_arrow_right)
-          : const Icon(Icons.keyboard_arrow_left),
+          ? const Icon(Icons.keyboard_arrow_left)
+          : const Icon(Icons.keyboard_arrow_right),
       onPressed: () => {
         setState(() {
           _updateSwipeType();
@@ -131,29 +132,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
-    /// Example
-    for (var i = 1; i < 11; i++) {
-      wheelLogic.textList
-          .add(_generateRandomString(i * _randomIntWithRange(1, 100)));
-      wheelLogic.pageList.add(_randomIntWithRange(1, 9));
-      wheelLogic.valueSet = wheelLogic.pageList.first;
-    }
-
+    _updateData(true);
     super.initState();
-
-    wheelLogic.initSet(
-      marginSet: 0.0,
-      fontSizeSet: 20.0,
-    );
-
-    wheelDataSet = WheelDataSet(
-      logic: wheelLogic,
-      slideActionFlg: slideActionFlg,
-    );
-    wheelWidget = WheelWidget(
-      marginSet: wheelLogic.margin,
-      fontSizeSet: wheelLogic.fontSize,
-    );
   }
 
   @override
