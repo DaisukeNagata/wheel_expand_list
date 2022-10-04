@@ -113,3 +113,7 @@
 ## 0.0.48
 
 * Update Logic -> Both side swipe tap judgment
+
+## 0.0.49
+
+* Update Example

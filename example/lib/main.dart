@@ -58,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void _updateData(bool flg) {
     setState(() {
       wheelLogic.textList.clear();
-
+      wheelLogic.pageList.clear();
       for (var i = 1; i < 11; i++) {
         wheelLogic.textList
             .add(_generateRandomString(i * _randomIntWithRange(1, 100)));
@@ -116,7 +116,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget _rightOfRightButton() {
     return IconButton(
-      icon: const Icon(Icons.add),
+      icon: const Icon(Icons.update),
       onPressed: () => {
         setState(() {
           _updateData(false);
@@ -159,7 +159,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
         leading: IconButton(
-          icon: const Icon(Icons.add),
+          icon: const Icon(Icons.cached_outlined),
           onPressed: () => {
             setState(() {
               slideActionFlg = !slideActionFlg;
