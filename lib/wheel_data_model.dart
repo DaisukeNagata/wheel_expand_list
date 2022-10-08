@@ -1,6 +1,5 @@
-import 'package:flutter/animation.dart';
-import 'package:flutter/material.dart';
-import 'package:wheel_expand_list/wheel_swipe_type.dart';
+import 'package:flutter/material.dart' show Cubic, FixedExtentScrollController;
+import 'package:wheel_expand_list/wheel_swipe_type.dart' show WheelSwipeType;
 
 class WheelPrimitiveModel {
   int generate = 0;

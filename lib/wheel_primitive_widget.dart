@@ -1,4 +1,17 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/widgets.dart'
+    show
+        Alignment,
+        BuildContext,
+        Column,
+        Container,
+        GlobalKey,
+        MediaQuery,
+        SafeArea,
+        SingleChildScrollView,
+        SizedBox,
+        Text,
+        TextStyle,
+        Widget;
 
 class WheelPrimitiveWidget {
   Widget primitiveWidget(

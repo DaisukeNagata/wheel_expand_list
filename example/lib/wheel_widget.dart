@@ -1,4 +1,25 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'
+    show
+        Alignment,
+        AnimatedOpacity,
+        BuildContext,
+        Card,
+        Colors,
+        Column,
+        Container,
+        GlobalKey,
+        Icon,
+        Icons,
+        IgnorePointer,
+        ListTile,
+        MediaQuery,
+        SafeArea,
+        SingleChildScrollView,
+        State,
+        StatefulWidget,
+        Text,
+        TextStyle,
+        Widget;
 import 'package:wheel_expand_list/wheel_primitive_widget.dart';
 
 class WheelWidget implements WheelPrimitiveWidget {

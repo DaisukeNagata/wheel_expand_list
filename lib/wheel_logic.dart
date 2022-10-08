@@ -1,4 +1,4 @@
-import 'dart:async';
+import 'dart:async' show Future, StreamController;
 
 import 'package:flutter/material.dart';
 import 'package:wheel_expand_list/wheel_global_key_ex.dart';
