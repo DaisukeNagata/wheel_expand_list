@@ -82,7 +82,7 @@ class WheelExpandList extends StatelessWidget {
                         (value) => Transform.rotate(
                           angle: wheelDataModel.swipeType == WheelSwipeType.left
                               ? 0 * pi / 180
-                              : 180 * (pi / 180),
+                              : 180 * pi / 180,
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
                             itemCount: wheelDataModel.itemCount,

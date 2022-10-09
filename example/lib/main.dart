@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:wheel_expand_list/wheel_expand_list.dart';
 import 'package:wheel_expand_list/wheel_logic.dart';
 import 'package:wheel_expand_list/wheel_swipe_type.dart';
+import 'package:wheel_expand_list_example/submain.dart';
 import 'package:wheel_expand_list_example/wheel_data_set.dart';
 import 'package:wheel_expand_list_example/wheel_widget.dart';
 
@@ -13,7 +14,9 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -116,11 +119,18 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget _rightOfRightButton() {
     return IconButton(
-      icon: const Icon(Icons.update),
+      icon: const Icon(Icons.arrow_forward),
       onPressed: () => {
-        setState(() {
-          _updateData(false);
-        }),
+        setState(
+          () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => SubMain(),
+              ),
+            );
+          },
+        ),
       },
     );
   }
@@ -148,6 +158,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leadingWidth: 100,
         title:
             Text('index${wheelLogic.indexCount}: page${wheelLogic.pageCount}'),
         actions: [
@@ -158,17 +169,29 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           ),
         ],
-        leading: IconButton(
-          icon: const Icon(Icons.cached_outlined),
-          onPressed: () => {
-            setState(() {
-              slideActionFlg = !slideActionFlg;
-              wheelDataSet = WheelDataSet(
-                logic: wheelLogic,
-                slideActionFlg: slideActionFlg,
-              );
-            }),
-          },
+        leading: Row(
+          children: [
+            IconButton(
+              icon: const Icon(Icons.update),
+              onPressed: () => {
+                setState(() {
+                  _updateData(false);
+                }),
+              },
+            ),
+            IconButton(
+              icon: const Icon(Icons.cached_outlined),
+              onPressed: () => {
+                setState(() {
+                  slideActionFlg = !slideActionFlg;
+                  wheelDataSet = WheelDataSet(
+                    logic: wheelLogic,
+                    slideActionFlg: slideActionFlg,
+                  );
+                }),
+              },
+            ),
+          ],
         ),
       ),
       body: Stack(
