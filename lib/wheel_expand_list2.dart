@@ -42,8 +42,8 @@ class WheelExpandList2 extends StatelessWidget {
             },
             child: SafeArea(
               child: SizedBox(
-                height: wheelLogic.heightLists[
-                    wheelLogic.pageCounts[wheelLogic.pageCount]][index],
+                height: wheelLogic.heightLists[wheelLogic.pageCounts[index]]
+                    [index],
                 child: Column(
                   children: [
                     Flexible(
@@ -82,8 +82,8 @@ class WheelExpandList2 extends StatelessWidget {
                                     ? 0 * pi / 180
                                     : 180 * pi / 180,
                                 child: Container(
-                                  height: wheelLogic.heightLists[wheelLogic
-                                          .pageCounts[wheelLogic.pageCount]]
+                                  height: wheelLogic
+                                      .heightLists[wheelLogic.pageCounts[index]]
                                       .getRange(0, wheelDataModel.itemCount)
                                       .toList()
                                       .reduce((a, b) => a + b),
@@ -111,8 +111,7 @@ class WheelExpandList2 extends StatelessWidget {
     return Row(
       children: [
         SizedBox(
-          width: wheelLogic
-              .heightLists[wheelLogic.pageCounts[wheelLogic.pageCount]][index],
+          width: wheelLogic.heightLists[wheelLogic.pageCounts[index]][index],
           height: MediaQuery.of(context).size.width - wheelDataModel.margin,
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
@@ -128,8 +127,8 @@ class WheelExpandList2 extends StatelessWidget {
                 children: [
                   wheelPrimitiveWidget.primitiveWidget(
                     context,
-                    wheelLogic.textListLists[
-                        wheelLogic.pageCounts[wheelLogic.pageCount]][index],
+                    wheelLogic.textListLists[wheelLogic.pageCounts[index]]
+                        [index],
                     0,
                     0,
                   ),
