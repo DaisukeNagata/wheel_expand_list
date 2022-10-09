@@ -87,8 +87,6 @@ class WheelExpandList2 extends StatelessWidget {
                                       .getRange(0, wheelDataModel.itemCount)
                                       .toList()
                                       .reduce((a, b) => a + b),
-                                  color:
-                                      index.isOdd ? Colors.black : Colors.white,
                                   child: _widgetDesign(context, index),
                                 ),
                               ),

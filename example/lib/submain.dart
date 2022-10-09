@@ -104,8 +104,8 @@ class _MyHomePageState2 extends State<MyHomePage2> {
         fontSizeSet: wheelLogic.fontSize,
       );
       Future.delayed(const Duration(milliseconds: 100), () {
-        wheelLogic.addHeightValue(
-            wheelLogic.globalKeys, wheelDataSet.margin.truncate());
+        wheelLogic.addHeightValues(
+            wheelLogic.globalKeysLists, wheelDataSet.margin.truncate());
       });
     });
   }
