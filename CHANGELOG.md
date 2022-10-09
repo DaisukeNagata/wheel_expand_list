@@ -145,3 +145,7 @@
 ## 0.1.5
 
 * Refactor
+
+## 0.1.6
+
+* Update Document
