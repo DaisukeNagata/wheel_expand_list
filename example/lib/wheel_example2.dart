@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:wheel_expand_list/wheel_expand_list_horizontaldart';
+import 'package:wheel_expand_list/wheel_expand_list_horizontal.dart';
 import 'package:wheel_expand_list/wheel_logic.dart';
 import 'package:wheel_expand_list/wheel_swipe_type.dart';
 import 'package:wheel_expand_list_example/wheel_data_set.dart';
@@ -14,7 +14,7 @@ class WheelExample2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WheelPage2();
+    return const WheelPage2();
   }
 }
 
@@ -61,8 +61,8 @@ class _WheelPageState2 extends State<WheelPage2> {
         wheelLogic.valueSet = wheelLogic.pageList.first;
       }
 
-      wheelLogic.fontSize = _randomIntWithRange(10, 20).toDouble();
-      wheelLogic.margin = _randomIntWithRange(50, 60).toDouble();
+      wheelLogic.fontSize = _randomIntWithRange(10, 50).toDouble();
+      wheelLogic.margin = _randomIntWithRange(50, 200).toDouble();
       if (flg) {
         wheelLogic.overlapInit(
             marginSet: wheelLogic.fontSize,

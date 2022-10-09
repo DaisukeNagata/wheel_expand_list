@@ -128,7 +128,7 @@
 
 ## 0.1.1
 
-* Update Doucument
+* Update Document
 
 ## 0.1.2
 
@@ -140,4 +140,8 @@
 
 ## 0.1.4
 
-* Update Doucument
+* Update Document
+
+## 0.1.5
+
+* Refactor
