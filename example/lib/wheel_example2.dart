@@ -1,11 +1,11 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:wheel_expand_list/wheel_expand_list_horizontaldart';
 import 'package:wheel_expand_list/wheel_logic.dart';
 import 'package:wheel_expand_list/wheel_swipe_type.dart';
 import 'package:wheel_expand_list_example/wheel_data_set.dart';
 import 'package:wheel_expand_list_example/wheel_widget.dart';
-import 'package:wheel_expand_list/wheel_expand_list_horizontaldart';
 
 class WheelExample2 extends StatelessWidget {
   const WheelExample2({
@@ -50,7 +50,7 @@ class _WheelPageState2 extends State<WheelPage2> {
   void _updateData(bool flg) {
     setState(() {
       wheelLogic.textListLists.clear();
-
+      wheelLogic.pageList.clear();
       for (var i = 0; i < 10; i++) {
         wheelLogic.textListLists.add([]);
         for (var nestI = 1; nestI < 11; nestI++) {
@@ -154,7 +154,7 @@ class _WheelPageState2 extends State<WheelPage2> {
       appBar: AppBar(
         leadingWidth: 100,
         title: Text(
-            'index${wheelLogic.indexCount}: page${wheelLogic.pageCounts[wheelLogic.pageCount]}'),
+            'index${wheelLogic.indexCount}: page${wheelLogic.pageCounts[wheelLogic.pageCount] + 1}'),
         actions: [
           Row(
             children: [
