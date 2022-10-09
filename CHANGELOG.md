@@ -121,3 +121,11 @@
 ## 0.0.5
 
 * lint fix in vscode
+
+## 0.1.0
+
+* update logic -> horizonal list logic
+
+## 0.1.1
+
+* Update Doucument
