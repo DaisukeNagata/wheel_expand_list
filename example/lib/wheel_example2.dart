@@ -5,29 +5,29 @@ import 'package:wheel_expand_list/wheel_logic.dart';
 import 'package:wheel_expand_list/wheel_swipe_type.dart';
 import 'package:wheel_expand_list_example/wheel_data_set.dart';
 import 'package:wheel_expand_list_example/wheel_widget.dart';
-import 'package:wheel_expand_list/wheel_expand_list2.dart';
+import 'package:wheel_expand_list/wheel_expand_list_horizontaldart';
 
-class SubMain extends StatelessWidget {
-  const SubMain({
+class WheelExample2 extends StatelessWidget {
+  const WheelExample2({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    return MyHomePage2();
+    return WheelPage2();
   }
 }
 
-class MyHomePage2 extends StatefulWidget {
-  const MyHomePage2({
+class WheelPage2 extends StatefulWidget {
+  const WheelPage2({
     super.key,
   });
 
   @override
-  State<MyHomePage2> createState() => _MyHomePageState2();
+  State<WheelPage2> createState() => _WheelPageState2();
 }
 
-class _MyHomePageState2 extends State<MyHomePage2> {
+class _WheelPageState2 extends State<WheelPage2> {
   var wheelLogic = WheelLogic();
   late WheelDataSet wheelDataSet;
   late WheelWidget wheelWidget;
@@ -64,10 +64,10 @@ class _MyHomePageState2 extends State<MyHomePage2> {
       wheelLogic.fontSize = _randomIntWithRange(10, 20).toDouble();
       wheelLogic.margin = _randomIntWithRange(50, 60).toDouble();
       if (flg) {
-        wheelLogic.initSet2(
-          marginSet: wheelLogic.fontSize,
-          fontSizeSet: wheelLogic.margin,
-        );
+        wheelLogic.overlapInit(
+            marginSet: wheelLogic.fontSize,
+            fontSizeSet: wheelLogic.margin,
+            again: true);
       }
 
       wheelDataSet = WheelDataSet(
@@ -80,8 +80,10 @@ class _MyHomePageState2 extends State<MyHomePage2> {
       );
       if (!flg) {
         Future.delayed(const Duration(milliseconds: 100), () {
-          wheelLogic.addHeightValues(
-              wheelLogic.globalKeysLists, wheelDataSet.margin.truncate());
+          wheelLogic.overlapInit(
+              marginSet: wheelLogic.fontSize,
+              fontSizeSet: wheelLogic.margin,
+              again: false);
         });
       }
     });
@@ -104,8 +106,10 @@ class _MyHomePageState2 extends State<MyHomePage2> {
         fontSizeSet: wheelLogic.fontSize,
       );
       Future.delayed(const Duration(milliseconds: 100), () {
-        wheelLogic.addHeightValues(
-            wheelLogic.globalKeysLists, wheelDataSet.margin.truncate());
+        wheelLogic.overlapInit(
+            marginSet: wheelLogic.fontSize,
+            fontSizeSet: wheelLogic.margin,
+            again: false);
       });
     });
   }
@@ -200,7 +204,7 @@ class _MyHomePageState2 extends State<MyHomePage2> {
               AsyncSnapshot<List<double>> snapshot,
             ) {
               if (snapshot.hasData) {
-                return WheelExpandList2(
+                return WheelExpandListHorizontal(
                   tapCall: (index) {
                     Future(() {
                       setState(() {

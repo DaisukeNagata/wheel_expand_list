@@ -5,16 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:wheel_expand_list/wheel_expand_list.dart';
 import 'package:wheel_expand_list/wheel_logic.dart';
 import 'package:wheel_expand_list/wheel_swipe_type.dart';
-import 'package:wheel_expand_list_example/submain.dart';
+import 'package:wheel_expand_list_example/wheel_example2.dart';
 import 'package:wheel_expand_list_example/wheel_data_set.dart';
 import 'package:wheel_expand_list_example/wheel_widget.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const WheelExample());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({
+class WheelExample extends StatelessWidget {
+  const WheelExample({
     super.key,
   });
 
@@ -24,21 +24,21 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(),
+      home: const WheelPage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({
+class WheelPage extends StatefulWidget {
+  const WheelPage({
     super.key,
   });
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<WheelPage> createState() => _WheelPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _WheelPageState extends State<WheelPage> {
   var wheelLogic = WheelLogic();
   late WheelDataSet wheelDataSet;
   late WheelWidget wheelWidget;
@@ -66,32 +66,41 @@ class _MyHomePageState extends State<MyHomePage> {
         wheelLogic.textList
             .add(_generateRandomString(i * _randomIntWithRange(1, 100)));
         wheelLogic.pageList.add(_randomIntWithRange(1, 9));
-        wheelLogic.valueSet = wheelLogic.pageList.first;
       }
+      wheelLogic.valueSet = wheelLogic.pageList.first;
       wheelLogic.fontSize = _randomIntWithRange(10, 50).toDouble();
       wheelLogic.margin = _randomIntWithRange(50, 200).toDouble();
-      if (flg) {
+
+      _setHeightValue(flg);
+    });
+  }
+
+  void _setHeightValue(bool flg) {
+    if (flg) {
+      wheelLogic.initSet(
+        marginSet: wheelLogic.fontSize,
+        fontSizeSet: wheelLogic.margin,
+        again: true,
+      );
+    }
+
+    wheelDataSet = WheelDataSet(
+      logic: wheelLogic,
+      slideActionFlg: slideActionFlg,
+    );
+    wheelWidget = WheelWidget(
+      marginSet: wheelLogic.margin,
+      fontSizeSet: wheelLogic.fontSize,
+    );
+    if (!flg) {
+      Future.delayed(const Duration(milliseconds: 100), () {
         wheelLogic.initSet(
           marginSet: wheelLogic.fontSize,
           fontSizeSet: wheelLogic.margin,
+          again: false,
         );
-      }
-
-      wheelDataSet = WheelDataSet(
-        logic: wheelLogic,
-        slideActionFlg: slideActionFlg,
-      );
-      wheelWidget = WheelWidget(
-        marginSet: wheelLogic.margin,
-        fontSizeSet: wheelLogic.fontSize,
-      );
-      if (!flg) {
-        Future.delayed(const Duration(milliseconds: 100), () {
-          wheelLogic.addHeightValue(
-              wheelLogic.globalKeys, wheelDataSet.margin.truncate());
-        });
-      }
-    });
+      });
+    }
   }
 
   /// Example
@@ -110,10 +119,11 @@ class _MyHomePageState extends State<MyHomePage> {
         marginSet: wheelLogic.margin,
         fontSizeSet: wheelLogic.fontSize,
       );
-      Future.delayed(const Duration(milliseconds: 100), () {
-        wheelLogic.addHeightValue(
-            wheelLogic.globalKeys, wheelDataSet.margin.truncate());
-      });
+      wheelLogic.initSet(
+        marginSet: wheelLogic.fontSize,
+        fontSizeSet: wheelLogic.margin,
+        again: true,
+      );
     });
   }
 
@@ -126,7 +136,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => SubMain(),
+                builder: (context) => const WheelExample2(),
               ),
             );
           },

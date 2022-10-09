@@ -7,8 +7,8 @@ import 'package:wheel_expand_list/wheel_logic.dart';
 import 'package:wheel_expand_list/wheel_primitive_widget.dart';
 import 'package:wheel_expand_list/wheel_swipe_type.dart';
 
-class WheelExpandList2 extends StatelessWidget {
-  const WheelExpandList2({
+class WheelExpandListHorizontal extends StatelessWidget {
+  const WheelExpandListHorizontal({
     super.key,
     required this.pageStart,
     required this.pageEnd,
@@ -26,19 +26,22 @@ class WheelExpandList2 extends StatelessWidget {
   final WheelPrimitiveWidget wheelPrimitiveWidget;
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
       child: ListView.builder(
         scrollDirection: Axis.vertical,
-        itemCount: 10,
+        itemCount: wheelLogic.pageList.length,
         itemBuilder: (context, index) {
           return GestureDetector(
             onTapDown: (_) {
-              tapCall.call(index);
+              wheelLogic.indexCount = index;
               wheelLogic.pageCount = index;
               wheelLogic.valueSetReady = wheelLogic.pageCounts[index];
               wheelLogic.valueSet = wheelLogic.valueSetReady + 1;
+            },
+            onTapUp: (_) {
+              tapCall.call(index);
             },
             child: SafeArea(
               child: SizedBox(
@@ -81,7 +84,7 @@ class WheelExpandList2 extends StatelessWidget {
                                         WheelSwipeType.left
                                     ? 0 * pi / 180
                                     : 180 * pi / 180,
-                                child: Container(
+                                child: SizedBox(
                                   height: wheelLogic
                                       .heightLists[wheelLogic.pageCounts[index]]
                                       .getRange(0, wheelDataModel.itemCount)

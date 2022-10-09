@@ -6,64 +6,90 @@ import 'package:wheel_expand_list/wheel_swipe_type.dart';
 
 class WheelLogic {
   int valueSet = 1;
-  int pageCount = 0;
   int valueSetReady = 1;
+  int pageCount = 0;
   int indexCount = 0;
   double margin = 0.0;
   double fontSize = 0.0;
   List<int> pageList = [];
-  List<int> pageCounts = [0];
+  List<int> pageCounts = [];
   List<String> textList = [];
-
   List<double> heightList = [];
-
   List<double> originYList = [];
   List<GlobalKey> globalKeys = [];
+  List<double> originYListTop = [];
   List<List<double>> heightLists = [];
   List<List<String>> textListLists = [];
   List<List<GlobalKey>> globalKeysLists = [];
-  List<double> originYListTop = [];
+  List<FixedExtentScrollController> controllers = [];
   WheelSwipeType swipeType = WheelSwipeType.right;
   var controller = FixedExtentScrollController(initialItem: 0);
-  List<FixedExtentScrollController> controllers = [];
   var streamController = StreamController<List<double>>();
+
+  void dispose() {
+    streamController.close();
+  }
 
   void initSet({
     required double marginSet,
     required double fontSizeSet,
+    required bool again,
   }) {
-    margin = marginSet;
-    fontSize = fontSizeSet;
-    globalKeys.clear();
-    pageCounts.clear();
-    for (final _ in textList) {
-      globalKeys.add(GlobalKey());
-      pageCounts.add(0);
-    }
-    addHeightValue(globalKeys, margin.toInt());
-  }
-
-  void initSet2({
-    required double marginSet,
-    required double fontSizeSet,
-  }) {
-    margin = marginSet;
-    fontSize = fontSizeSet;
-    globalKeysLists.clear();
-    pageCounts.clear();
-
-    for (var i = 0; i < textListLists.length; i++) {
-      pageCounts.add(0);
-      globalKeysLists.add([]);
-      for (var nestI = 0; nestI < textListLists.length; nestI++) {
-        globalKeysLists[i].add(GlobalKey());
+    if (again) {
+      margin = marginSet;
+      fontSize = fontSizeSet;
+      globalKeys.clear();
+      pageCounts.clear();
+      for (final _ in textList) {
+        globalKeys.add(GlobalKey());
+        pageCounts.add(0);
       }
     }
-
-    addHeightValues(globalKeysLists, margin.toInt());
+    _addHeightValue(globalKeys, margin.toInt());
   }
 
-  void addHeightValues(List<List<GlobalKey>> keysList, int margin) {
+  void overlapInit({
+    required double marginSet,
+    required double fontSizeSet,
+    required bool again,
+  }) {
+    if (again) {
+      margin = marginSet;
+      fontSize = fontSizeSet;
+      globalKeysLists.clear();
+      pageCounts.clear();
+
+      for (var i = 0; i < textListLists.length; i++) {
+        pageCounts.add(0);
+        globalKeysLists.add([]);
+        for (var nestI = 0; nestI < textListLists.length; nestI++) {
+          globalKeysLists[i].add(GlobalKey());
+        }
+      }
+      _addHeightValues(globalKeysLists, margin.toInt());
+    } else {
+      _addHeightValues(globalKeysLists, margin.toInt());
+    }
+  }
+
+  void _addHeightValue(List<GlobalKey> keys, int margin) {
+    Future(() async {
+      heightList.clear();
+      originYList.clear();
+      originYListTop.clear();
+
+      for (final value in keys) {
+        heightList.add(_sizeMethod(value, margin));
+        controllers.add(FixedExtentScrollController(initialItem: 0));
+        _originMethod(value, margin);
+      }
+      if (heightList.last > 0.0) {
+        streamController.sink.add(heightList);
+      }
+    });
+  }
+
+  void _addHeightValues(List<List<GlobalKey>> keysList, int margin) {
     Future(() async {
       heightLists.clear();
       controllers.clear();
@@ -78,29 +104,6 @@ class WheelLogic {
         streamController.sink.add(heightLists.last);
       }
     });
-  }
-
-  void addHeightValue(List<GlobalKey> keys, int margin) {
-    Future(() async {
-      heightList.clear();
-      originYList.clear();
-      originYListTop.clear();
-
-      var i = 0;
-      for (final value in keys) {
-        heightList.add(_sizeMethod(value, margin));
-        controllers.add(FixedExtentScrollController(initialItem: 0));
-        i++;
-        _originMethod(value, margin);
-      }
-      if (heightList.last > 0.0) {
-        streamController.sink.add(heightList);
-      }
-    });
-  }
-
-  void dispose() {
-    streamController.close();
   }
 
   _originMethod(GlobalKey key, int margin) {
