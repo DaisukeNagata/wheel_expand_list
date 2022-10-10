@@ -2,17 +2,16 @@ import 'package:flutter/cupertino.dart' show Cubic, FixedExtentScrollController;
 import 'package:wheel_expand_list/wheel_data_model.dart';
 import 'package:wheel_expand_list/wheel_logic.dart';
 import 'package:wheel_expand_list/wheel_swipe_type.dart';
+import 'package:wheel_expand_list_example/wheel_widget.dart';
 
 class WheelDataSet implements WheelPrimitiveModel {
   WheelDataSet({
     required this.logic,
-    required this.slideActionFlg,
   });
   final WheelLogic logic;
-  final bool slideActionFlg;
   @override
   double get diameterRatio {
-    return slideActionFlg ? 2 : 200;
+    return logic.slideActionFlg ? 2 : 200;
   }
 
   @override

@@ -20,15 +20,14 @@ import 'package:flutter/material.dart'
         Text,
         TextStyle,
         Widget;
+import 'package:wheel_expand_list/wheel_logic.dart';
 import 'package:wheel_expand_list/wheel_primitive_widget.dart';
 
 class WheelWidget implements WheelPrimitiveWidget {
   const WheelWidget({
-    required this.marginSet,
-    required this.fontSizeSet,
+    required this.logic,
   });
-  final double marginSet;
-  final double fontSizeSet;
+  final WheelLogic logic;
   /*
 　*You can set your favorite design.
 　* */
@@ -40,7 +39,7 @@ class WheelWidget implements WheelPrimitiveWidget {
     double fontSize,
   ) {
     return Container(
-      width: MediaQuery.of(context).size.width - marginSet,
+      width: MediaQuery.of(context).size.width - logic.margin,
       color: Colors.green,
 
       /// same widget
@@ -50,7 +49,7 @@ class WheelWidget implements WheelPrimitiveWidget {
           title: Text(
             text,
             style: TextStyle(
-              fontSize: fontSizeSet,
+              fontSize: logic.fontSize,
             ),
           ),
         ),
@@ -115,7 +114,7 @@ class WheelWidget implements WheelPrimitiveWidget {
                 title: Text(
                   text,
                   style: TextStyle(
-                    fontSize: fontSizeSet,
+                    fontSize: logic.fontSize,
                   ),
                 ),
               ),

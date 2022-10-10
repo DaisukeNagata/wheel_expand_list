@@ -30,12 +30,16 @@ class _WheelPageState2 extends State<WheelPage2> {
   var wheelLogic = WheelLogic();
   late WheelDataSet wheelDataSet;
   late WheelWidget wheelWidget;
-  var _slideActionFlg = false;
 
   void _updateData(bool flg) {
     setState(() {
       wheelLogic.loop2(flg);
-      _widgetSet();
+      wheelDataSet = WheelDataSet(
+        logic: wheelLogic,
+      );
+      wheelWidget = WheelWidget(
+        logic: wheelLogic,
+      );
     });
   }
 
@@ -43,19 +47,7 @@ class _WheelPageState2 extends State<WheelPage2> {
     setState(() {
       wheelLogic.type();
       wheelLogic.setHeightValue2(false);
-      _widgetSet();
     });
-  }
-
-  void _widgetSet() {
-    wheelDataSet = WheelDataSet(
-      logic: wheelLogic,
-      slideActionFlg: _slideActionFlg,
-    );
-    wheelWidget = WheelWidget(
-      marginSet: wheelLogic.margin,
-      fontSizeSet: wheelLogic.fontSize,
-    );
   }
 
   Widget _rightOfRightButton() {
@@ -76,10 +68,9 @@ class _WheelPageState2 extends State<WheelPage2> {
       icon: const Icon(Icons.cached_outlined),
       onPressed: () => {
         setState(() {
-          _slideActionFlg = !_slideActionFlg;
+          wheelLogic.slideActionFlg = !wheelLogic.slideActionFlg;
           wheelDataSet = WheelDataSet(
             logic: wheelLogic,
-            slideActionFlg: _slideActionFlg,
           );
         }),
       },
@@ -157,7 +148,7 @@ class _WheelPageState2 extends State<WheelPage2> {
                     });
                   },
                   pageStart: (index) {
-                    _slideActionFlg
+                    wheelLogic.slideActionFlg
                         ? wheelDataSet.startController(
                             index,
                             300,

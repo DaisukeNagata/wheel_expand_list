@@ -42,13 +42,17 @@ class _WheelPageState extends State<WheelPage> {
   var wheelLogic = WheelLogic();
   late WheelDataSet wheelDataSet;
   late WheelWidget wheelWidget;
-  var _slideActionFlg = false;
 
   /// Example
   void _updateData(bool flg) {
     setState(() {
       wheelLogic.loop1(flg);
-      _widgetSet();
+      wheelDataSet = WheelDataSet(
+        logic: wheelLogic,
+      );
+      wheelWidget = WheelWidget(
+        logic: wheelLogic,
+      );
     });
   }
 
@@ -56,24 +60,12 @@ class _WheelPageState extends State<WheelPage> {
   void _updateSwipeType() {
     setState(() {
       wheelLogic.type();
-      _widgetSet();
       wheelLogic.initSet(
         marginSet: wheelLogic.fontSize,
         fontSizeSet: wheelLogic.margin,
         again: false,
       );
     });
-  }
-
-  void _widgetSet() {
-    wheelDataSet = WheelDataSet(
-      logic: wheelLogic,
-      slideActionFlg: _slideActionFlg,
-    );
-    wheelWidget = WheelWidget(
-      marginSet: wheelLogic.margin,
-      fontSizeSet: wheelLogic.fontSize,
-    );
   }
 
   Widget _rightOfRightButton() {
@@ -142,10 +134,9 @@ class _WheelPageState extends State<WheelPage> {
               icon: const Icon(Icons.cached_outlined),
               onPressed: () => {
                 setState(() {
-                  _slideActionFlg = !_slideActionFlg;
+                  wheelLogic.slideActionFlg = !wheelLogic.slideActionFlg;
                   wheelDataSet = WheelDataSet(
                     logic: wheelLogic,
-                    slideActionFlg: _slideActionFlg,
                   );
                 }),
               },
@@ -181,7 +172,7 @@ class _WheelPageState extends State<WheelPage> {
                           });
                         },
                         pageStart: (index) {
-                          _slideActionFlg
+                          wheelLogic.slideActionFlg
                               ? wheelDataSet.startController(
                                   index,
                                   300,

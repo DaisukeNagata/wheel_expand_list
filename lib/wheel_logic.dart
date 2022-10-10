@@ -11,6 +11,7 @@ class WheelLogic {
   int indexCount = 0;
   double margin = 0.0;
   double fontSize = 0.0;
+  bool slideActionFlg = false;
   List<int> pageList = [];
   List<int> pageCounts = [];
   List<String> textList = [];

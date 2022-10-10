@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:wheel_expand_list/wheel_logic.dart';
 import 'package:wheel_expand_list/wheel_swipe_type.dart';
+import 'package:wheel_expand_list_example/wheel_data_set.dart';
 
 extension GenerateRandomStrings on String {
   String generateRandomString(int len) {
