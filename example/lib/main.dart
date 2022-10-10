@@ -196,8 +196,8 @@ class _WheelPageState extends State<WheelPage> {
                                 );
                         },
                         pageEnd: (value) {
-                          setState(() {
-                            Future(() {
+                          Future(() {
+                            setState(() {
                               wheelLogic.indexCount = 0;
                               wheelLogic.pageCount = value;
                             });
