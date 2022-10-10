@@ -44,65 +44,31 @@ class _WheelPageState extends State<WheelPage> {
   var wheelLogic = WheelLogic();
   late WheelDataSet wheelDataSet;
   late WheelWidget wheelWidget;
-  var slideActionFlg = false;
+  var _slideActionFlg = false;
 
   /// Example
   void _updateData(bool flg) {
     setState(() {
-      wheelLogic.textList.clear();
-      wheelLogic.pageList.clear();
-      for (var i = 1; i < 11; i++) {
-        wheelLogic.textList
-            .add(''.generateRandomString(i * 0.randomIntWithRange(1, 100)));
-        wheelLogic.pageList.add(0.randomIntWithRange(1, 9));
-      }
-      wheelLogic.valueSet = wheelLogic.pageList.first;
-      wheelLogic.fontSize = 0.randomIntWithRange(10, 50).toDouble();
-      wheelLogic.margin = 0.randomIntWithRange(50, 200).toDouble();
-
-      _setHeightValue(flg);
-    });
-  }
-
-  void _setHeightValue(bool flg) {
-    if (flg) {
-      wheelLogic.initSet(
-        marginSet: wheelLogic.fontSize,
-        fontSizeSet: wheelLogic.margin,
-        again: true,
+      wheelLogic.loop1();
+      wheelLogic.setHeightValue(flg);
+      wheelDataSet = WheelDataSet(
+        logic: wheelLogic,
+        slideActionFlg: _slideActionFlg,
       );
-    }
-
-    wheelDataSet = WheelDataSet(
-      logic: wheelLogic,
-      slideActionFlg: slideActionFlg,
-    );
-    wheelWidget = WheelWidget(
-      marginSet: wheelLogic.margin,
-      fontSizeSet: wheelLogic.fontSize,
-    );
-    if (!flg) {
-      Future.delayed(const Duration(milliseconds: 100), () {
-        wheelLogic.initSet(
-          marginSet: wheelLogic.fontSize,
-          fontSizeSet: wheelLogic.margin,
-          again: false,
-        );
-      });
-    }
+      wheelWidget = WheelWidget(
+        marginSet: wheelLogic.margin,
+        fontSizeSet: wheelLogic.fontSize,
+      );
+    });
   }
 
   /// Example
   void _updateSwipeType() {
     setState(() {
-      if (wheelDataSet.swipeType == WheelSwipeType.left) {
-        wheelLogic.swipeType = WheelSwipeType.right;
-      } else {
-        wheelLogic.swipeType = WheelSwipeType.left;
-      }
+      wheelLogic.type();
       wheelDataSet = WheelDataSet(
         logic: wheelLogic,
-        slideActionFlg: slideActionFlg,
+        slideActionFlg: _slideActionFlg,
       );
       wheelWidget = WheelWidget(
         marginSet: wheelLogic.margin,
@@ -182,10 +148,10 @@ class _WheelPageState extends State<WheelPage> {
               icon: const Icon(Icons.cached_outlined),
               onPressed: () => {
                 setState(() {
-                  slideActionFlg = !slideActionFlg;
+                  _slideActionFlg = !_slideActionFlg;
                   wheelDataSet = WheelDataSet(
                     logic: wheelLogic,
-                    slideActionFlg: slideActionFlg,
+                    slideActionFlg: _slideActionFlg,
                   );
                 }),
               },
@@ -221,7 +187,7 @@ class _WheelPageState extends State<WheelPage> {
                           });
                         },
                         pageStart: (index) {
-                          slideActionFlg
+                          _slideActionFlg
                               ? wheelDataSet.startController(
                                   index,
                                   300,
