@@ -165,3 +165,7 @@
 ## 0.2.0
 
 * Refactor
+
+## 0.2.1
+
+* Refactor
