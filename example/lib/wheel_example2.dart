@@ -37,8 +37,7 @@ class _WheelPageState2 extends State<WheelPage2> {
   /// Example
   void _updateData(bool flg) {
     setState(() {
-      wheelLogic.loop2();
-      wheelLogic.setHeightValue2(flg);
+      wheelLogic.loop2(flg);
       wheelDataSet = WheelDataSet(
         logic: wheelLogic,
         slideActionFlg: _slideActionFlg,

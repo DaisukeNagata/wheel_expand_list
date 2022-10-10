@@ -22,7 +22,7 @@ extension Range on int {
 }
 
 extension loopLogic on WheelLogic {
-  loop1() {
+  loop1(bool flg) {
     textList.clear();
     pageList.clear();
     for (var i = 1; i < 11; i++) {
@@ -32,9 +32,10 @@ extension loopLogic on WheelLogic {
     valueSet = pageList.first;
     fontSize = 0.randomIntWithRange(10, 50).toDouble();
     margin = 0.randomIntWithRange(50, 200).toDouble();
+    setHeightValue(flg);
   }
 
-  loop2() {
+  loop2(bool flg) {
     textListLists.clear();
     pageList.clear();
     for (var i = 0; i < 10; i++) {
@@ -49,6 +50,7 @@ extension loopLogic on WheelLogic {
 
     fontSize = 0.randomIntWithRange(10, 50).toDouble();
     margin = 0.randomIntWithRange(50, 200).toDouble();
+    setHeightValue2(flg);
   }
 
   void setHeightValue(bool flg) {
