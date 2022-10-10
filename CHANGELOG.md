@@ -157,3 +157,7 @@
 ## 0.1.8
 
 * Update Document
+
+## 0.1.9
+
+* Refactor

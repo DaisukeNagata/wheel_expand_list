@@ -7,7 +7,7 @@ import 'package:wheel_expand_list/wheel_swipe_type.dart';
 class WheelLogic {
   int valueSet = 1;
   int valueSetReady = 1;
-  int pageCount = 0;
+  int pageCount = 1;
   int indexCount = 0;
   double margin = 0.0;
   double fontSize = 0.0;

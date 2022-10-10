@@ -5,6 +5,7 @@ import 'package:wheel_expand_list/wheel_expand_list_horizontal.dart';
 import 'package:wheel_expand_list/wheel_logic.dart';
 import 'package:wheel_expand_list/wheel_swipe_type.dart';
 import 'package:wheel_expand_list_example/wheel_data_set.dart';
+import 'package:wheel_expand_list_example/wheel_extension_logic.dart';
 import 'package:wheel_expand_list_example/wheel_widget.dart';
 
 class WheelExample2 extends StatelessWidget {
@@ -33,19 +34,6 @@ class _WheelPageState2 extends State<WheelPage2> {
   late WheelWidget wheelWidget;
   var slideActionFlg = false;
 
-  int _randomIntWithRange(int min, int max) {
-    int value = Random().nextInt(max - min);
-    return value + min;
-  }
-
-  String _generateRandomString(int len) {
-    var r = Random();
-    const chars =
-        'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
-    return List.generate(len.toInt(), (index) => chars[r.nextInt(chars.length)])
-        .join();
-  }
-
   /// Example
   void _updateData(bool flg) {
     setState(() {
@@ -54,15 +42,15 @@ class _WheelPageState2 extends State<WheelPage2> {
       for (var i = 0; i < 10; i++) {
         wheelLogic.textListLists.add([]);
         for (var nestI = 1; nestI < 11; nestI++) {
-          wheelLogic.textListLists[i]
-              .add(_generateRandomString(nestI * _randomIntWithRange(1, 10)));
+          wheelLogic.textListLists[i].add(
+              ''.generateRandomString(nestI * 0.randomIntWithRange(1, 10)));
         }
-        wheelLogic.pageList.add(_randomIntWithRange(1, 9));
+        wheelLogic.pageList.add(0.randomIntWithRange(1, 9));
         wheelLogic.valueSet = wheelLogic.pageList.first;
       }
 
-      wheelLogic.fontSize = _randomIntWithRange(10, 50).toDouble();
-      wheelLogic.margin = _randomIntWithRange(50, 200).toDouble();
+      wheelLogic.fontSize = 0.randomIntWithRange(10, 50).toDouble();
+      wheelLogic.margin = 0.randomIntWithRange(50, 200).toDouble();
       if (flg) {
         wheelLogic.overlapInit(
             marginSet: wheelLogic.fontSize,

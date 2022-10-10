@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ffi';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -7,6 +8,7 @@ import 'package:wheel_expand_list/wheel_logic.dart';
 import 'package:wheel_expand_list/wheel_swipe_type.dart';
 import 'package:wheel_expand_list_example/wheel_data_set.dart';
 import 'package:wheel_expand_list_example/wheel_example2.dart';
+import 'package:wheel_expand_list_example/wheel_extension_logic.dart';
 import 'package:wheel_expand_list_example/wheel_widget.dart';
 
 void main() {
@@ -44,19 +46,6 @@ class _WheelPageState extends State<WheelPage> {
   late WheelWidget wheelWidget;
   var slideActionFlg = false;
 
-  int _randomIntWithRange(int min, int max) {
-    int value = Random().nextInt(max - min);
-    return value + min;
-  }
-
-  String _generateRandomString(int len) {
-    var r = Random();
-    const chars =
-        'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
-    return List.generate(len.toInt(), (index) => chars[r.nextInt(chars.length)])
-        .join();
-  }
-
   /// Example
   void _updateData(bool flg) {
     setState(() {
@@ -64,12 +53,12 @@ class _WheelPageState extends State<WheelPage> {
       wheelLogic.pageList.clear();
       for (var i = 1; i < 11; i++) {
         wheelLogic.textList
-            .add(_generateRandomString(i * _randomIntWithRange(1, 100)));
-        wheelLogic.pageList.add(_randomIntWithRange(1, 9));
+            .add(''.generateRandomString(i * 0.randomIntWithRange(1, 100)));
+        wheelLogic.pageList.add(0.randomIntWithRange(1, 9));
       }
       wheelLogic.valueSet = wheelLogic.pageList.first;
-      wheelLogic.fontSize = _randomIntWithRange(10, 50).toDouble();
-      wheelLogic.margin = _randomIntWithRange(50, 200).toDouble();
+      wheelLogic.fontSize = 0.randomIntWithRange(10, 50).toDouble();
+      wheelLogic.margin = 0.randomIntWithRange(50, 200).toDouble();
 
       _setHeightValue(flg);
     });
@@ -122,7 +111,7 @@ class _WheelPageState extends State<WheelPage> {
       wheelLogic.initSet(
         marginSet: wheelLogic.fontSize,
         fontSizeSet: wheelLogic.margin,
-        again: true,
+        again: false,
       );
     });
   }
