@@ -23,17 +23,11 @@ https://pub.dev/packages/wheel_expand_list
 
 ### Your favorite design will be reflected in the Widget.
 ```
-  MyApp class ....
-  var margin = 30.0;
-  var fontSize = 30.0;
-  
-  wheelWidget = WheelWidget(
-    marginSet: margin,
-    fontSizeSet: fontSize,
-  );
-  
-  WheelWidget class ....
-  check is this 'same widget'
+class WheelWidget implements WheelPrimitiveWidget {
+  const WheelWidget({
+    required this.logic,
+  });
+  final WheelLogic logic;
   /*
 　*You can set your favorite design.
 　* */
@@ -45,7 +39,7 @@ https://pub.dev/packages/wheel_expand_list
     double fontSize,
   ) {
     return Container(
-      width: MediaQuery.of(context).size.width - marginSet,
+      width: MediaQuery.of(context).size.width - logic.margin,
       color: Colors.green,
 
       /// same widget
@@ -55,10 +49,38 @@ https://pub.dev/packages/wheel_expand_list
           title: Text(
             text,
             style: TextStyle(
-              fontSize: fontSizeSet,
+              fontSize: logic.fontSize,
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  /*
+  * Used to pre-size the Widget.
+  * */
+  @override
+  Widget loopWidget(
+    BuildContext context,
+    List<GlobalKey> keys,
+    List<String> textList,
+    double margin,
+    double fontSize,
+  ) {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          for (var i = 0; i < keys.length; i++) ...[
+            setSizeWidget(
+              context,
+              keys[i],
+              textList[i],
+              margin,
+              fontSize,
+            ),
+          ],
+        ],
       ),
     );
   }
@@ -92,7 +114,7 @@ https://pub.dev/packages/wheel_expand_list
                 title: Text(
                   text,
                   style: TextStyle(
-                    fontSize: fontSizeSet,
+                    fontSize: logic.fontSize,
                   ),
                 ),
               ),
@@ -102,6 +124,7 @@ https://pub.dev/packages/wheel_expand_list
       ),
     );
   }
+}
 
 ```
 

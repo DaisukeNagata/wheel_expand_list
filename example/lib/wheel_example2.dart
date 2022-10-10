@@ -23,63 +23,17 @@ class WheelPage2 extends StatefulWidget {
   });
 
   @override
-  State<WheelPage2> createState() => _WheelPageState2();
+  State<WheelPage2> createState() => WheelPageState2();
 }
 
-class _WheelPageState2 extends State<WheelPage2> {
+class WheelPageState2 extends State<WheelPage2> {
   var wheelLogic = WheelLogic();
   late WheelDataSet wheelDataSet;
   late WheelWidget wheelWidget;
 
-  void _updateData(bool flg) {
-    setState(() {
-      wheelLogic.loop2(flg);
-      wheelDataSet = WheelDataSet(
-        logic: wheelLogic,
-      );
-      wheelWidget = WheelWidget(
-        logic: wheelLogic,
-      );
-    });
-  }
-
-  void _updateSwipeType() {
-    setState(() {
-      wheelLogic.type();
-      wheelLogic.setHeightValue2(false);
-    });
-  }
-
-  Widget _rightOfRightButton() {
-    return IconButton(
-      icon: wheelDataSet.swipeType == WheelSwipeType.right
-          ? const Icon(Icons.keyboard_arrow_left)
-          : const Icon(Icons.keyboard_arrow_right),
-      onPressed: () => {
-        setState(() {
-          _updateSwipeType();
-        }),
-      },
-    );
-  }
-
-  Widget _rightOfLeftButton() {
-    return IconButton(
-      icon: const Icon(Icons.cached_outlined),
-      onPressed: () => {
-        setState(() {
-          wheelLogic.slideActionFlg = !wheelLogic.slideActionFlg;
-          wheelDataSet = WheelDataSet(
-            logic: wheelLogic,
-          );
-        }),
-      },
-    );
-  }
-
   @override
   void initState() {
-    _updateData(true);
+    updateData(true);
     super.initState();
   }
 
@@ -93,31 +47,15 @@ class _WheelPageState2 extends State<WheelPage2> {
         actions: [
           Row(
             children: [
-              _rightOfLeftButton(),
-              _rightOfRightButton(),
+              rightOfLeftButton(),
+              rightOfRightButton(),
             ],
           ),
         ],
         leading: Row(
           children: [
-            IconButton(
-              icon: const Icon(Icons.arrow_back),
-              onPressed: () => {
-                setState(
-                  () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-              },
-            ),
-            IconButton(
-              icon: const Icon(Icons.update),
-              onPressed: () => {
-                setState(() {
-                  _updateData(false);
-                }),
-              },
-            ),
+            leftOfLeftButton(),
+            leftOfRightButton(),
           ],
         ),
       ),

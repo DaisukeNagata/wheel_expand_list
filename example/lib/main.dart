@@ -35,73 +35,17 @@ class WheelPage extends StatefulWidget {
   });
 
   @override
-  State<WheelPage> createState() => _WheelPageState();
+  State<WheelPage> createState() => WheelPageState();
 }
 
-class _WheelPageState extends State<WheelPage> {
+class WheelPageState extends State<WheelPage> {
   var wheelLogic = WheelLogic();
   late WheelDataSet wheelDataSet;
   late WheelWidget wheelWidget;
 
-  /// Example
-  void _updateData(bool flg) {
-    setState(() {
-      wheelLogic.loop1(flg);
-      wheelDataSet = WheelDataSet(
-        logic: wheelLogic,
-      );
-      wheelWidget = WheelWidget(
-        logic: wheelLogic,
-      );
-    });
-  }
-
-  /// Example
-  void _updateSwipeType() {
-    setState(() {
-      wheelLogic.type();
-      wheelLogic.initSet(
-        marginSet: wheelLogic.fontSize,
-        fontSizeSet: wheelLogic.margin,
-        again: false,
-      );
-    });
-  }
-
-  Widget _rightOfRightButton() {
-    return IconButton(
-      icon: const Icon(Icons.arrow_forward),
-      onPressed: () => {
-        setState(
-          () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const WheelExample2(),
-              ),
-            );
-          },
-        ),
-      },
-    );
-  }
-
-  Widget _rightOfLeftButton() {
-    return IconButton(
-      icon: wheelDataSet.swipeType == WheelSwipeType.right
-          ? const Icon(Icons.keyboard_arrow_left)
-          : const Icon(Icons.keyboard_arrow_right),
-      onPressed: () => {
-        setState(() {
-          _updateSwipeType();
-        }),
-      },
-    );
-  }
-
   @override
   void initState() {
-    _updateData(true);
+    updateData(true);
     super.initState();
   }
 
@@ -115,32 +59,15 @@ class _WheelPageState extends State<WheelPage> {
         actions: [
           Row(
             children: [
-              _rightOfLeftButton(),
-              _rightOfRightButton(),
+              rightOfLeftButton(),
+              rightOfRightButton(),
             ],
           ),
         ],
         leading: Row(
           children: [
-            IconButton(
-              icon: const Icon(Icons.update),
-              onPressed: () => {
-                setState(() {
-                  _updateData(false);
-                }),
-              },
-            ),
-            IconButton(
-              icon: const Icon(Icons.cached_outlined),
-              onPressed: () => {
-                setState(() {
-                  wheelLogic.slideActionFlg = !wheelLogic.slideActionFlg;
-                  wheelDataSet = WheelDataSet(
-                    logic: wheelLogic,
-                  );
-                }),
-              },
-            ),
+            leftOfLeftButton(),
+            leftOfRightButton(),
           ],
         ),
       ),

@@ -1,8 +1,12 @@
 import 'dart:math';
 
+import 'package:flutter/material.dart';
 import 'package:wheel_expand_list/wheel_logic.dart';
 import 'package:wheel_expand_list/wheel_swipe_type.dart';
+import 'package:wheel_expand_list_example/main.dart';
 import 'package:wheel_expand_list_example/wheel_data_set.dart';
+import 'package:wheel_expand_list_example/wheel_example2.dart';
+import 'package:wheel_expand_list_example/wheel_widget.dart';
 
 extension GenerateRandomStrings on String {
   String generateRandomString(int len) {
@@ -87,5 +91,159 @@ extension Loop on WheelLogic {
     } else {
       swipeType = WheelSwipeType.left;
     }
+  }
+}
+
+extension WheelPageStateEx on WheelPageState {
+  /// Example
+  void updateData(bool flg) {
+    setState(() {
+      wheelLogic.loop1(flg);
+      wheelDataSet = WheelDataSet(
+        logic: wheelLogic,
+      );
+      wheelWidget = WheelWidget(
+        logic: wheelLogic,
+      );
+    });
+  }
+
+  void _updateSwipeType() {
+    setState(() {
+      wheelLogic.type();
+      wheelLogic.initSet(
+        marginSet: wheelLogic.fontSize,
+        fontSizeSet: wheelLogic.margin,
+        again: false,
+      );
+    });
+  }
+
+  Widget rightOfRightButton() {
+    return IconButton(
+      icon: const Icon(Icons.arrow_forward),
+      onPressed: () => {
+        setState(
+          () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const WheelExample2(),
+              ),
+            );
+          },
+        ),
+      },
+    );
+  }
+
+  Widget rightOfLeftButton() {
+    return IconButton(
+      icon: wheelDataSet.swipeType == WheelSwipeType.right
+          ? const Icon(Icons.keyboard_arrow_left)
+          : const Icon(Icons.keyboard_arrow_right),
+      onPressed: () => {
+        setState(() {
+          _updateSwipeType();
+        }),
+      },
+    );
+  }
+
+  Widget leftOfRightButton() {
+    return IconButton(
+      icon: const Icon(Icons.cached_outlined),
+      onPressed: () => {
+        setState(() {
+          wheelLogic.slideActionFlg = !wheelLogic.slideActionFlg;
+          wheelDataSet = WheelDataSet(
+            logic: wheelLogic,
+          );
+        }),
+      },
+    );
+  }
+
+  Widget leftOfLeftButton() {
+    return IconButton(
+      icon: const Icon(Icons.update),
+      onPressed: () => {
+        setState(() {
+          updateData(false);
+        }),
+      },
+    );
+  }
+}
+
+extension WheelPageState2Ex on WheelPageState2 {
+  void updateData(bool flg) {
+    setState(() {
+      wheelLogic.loop2(flg);
+      wheelDataSet = WheelDataSet(
+        logic: wheelLogic,
+      );
+      wheelWidget = WheelWidget(
+        logic: wheelLogic,
+      );
+    });
+  }
+
+  void _updateSwipeType() {
+    setState(() {
+      wheelLogic.type();
+      wheelLogic.setHeightValue2(false);
+    });
+  }
+
+  Widget rightOfRightButton() {
+    return IconButton(
+      icon: wheelDataSet.swipeType == WheelSwipeType.right
+          ? const Icon(Icons.keyboard_arrow_left)
+          : const Icon(Icons.keyboard_arrow_right),
+      onPressed: () => {
+        setState(() {
+          _updateSwipeType();
+        }),
+      },
+    );
+  }
+
+  Widget rightOfLeftButton() {
+    return IconButton(
+      icon: const Icon(Icons.cached_outlined),
+      onPressed: () => {
+        setState(() {
+          wheelLogic.slideActionFlg = !wheelLogic.slideActionFlg;
+          wheelDataSet = WheelDataSet(
+            logic: wheelLogic,
+          );
+        }),
+      },
+    );
+  }
+
+  Widget leftOfRightButton() {
+    return IconButton(
+      icon: const Icon(Icons.update),
+      onPressed: () => {
+        setState(() {
+          updateData(false);
+        }),
+      },
+    );
+  }
+
+  Widget leftOfLeftButton() {
+    return IconButton(
+      icon: const Icon(Icons.arrow_back),
+      onPressed: () => {
+        setState(
+          () {
+            Navigator.of(context).pop();
+          },
+        ),
+      },
+    );
   }
 }
