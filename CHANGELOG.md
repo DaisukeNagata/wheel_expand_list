@@ -177,3 +177,7 @@
 ## 0.2.3
 
 * Refactor
+
+## 0.2.4
+
+* Refactor

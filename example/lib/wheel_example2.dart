@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:wheel_expand_list/wheel_expand_list_horizontal.dart';
 import 'package:wheel_expand_list/wheel_logic.dart';
@@ -34,35 +32,30 @@ class _WheelPageState2 extends State<WheelPage2> {
   late WheelWidget wheelWidget;
   var _slideActionFlg = false;
 
-  /// Example
   void _updateData(bool flg) {
     setState(() {
       wheelLogic.loop2(flg);
-      wheelDataSet = WheelDataSet(
-        logic: wheelLogic,
-        slideActionFlg: _slideActionFlg,
-      );
-      wheelWidget = WheelWidget(
-        marginSet: wheelLogic.margin,
-        fontSizeSet: wheelLogic.fontSize,
-      );
+      _widgetSet();
     });
   }
 
-  /// Example
   void _updateSwipeType() {
     setState(() {
       wheelLogic.type();
       wheelLogic.setHeightValue2(false);
-      wheelDataSet = WheelDataSet(
-        logic: wheelLogic,
-        slideActionFlg: _slideActionFlg,
-      );
-      wheelWidget = WheelWidget(
-        marginSet: wheelLogic.margin,
-        fontSizeSet: wheelLogic.fontSize,
-      );
+      _widgetSet();
     });
+  }
+
+  void _widgetSet() {
+    wheelDataSet = WheelDataSet(
+      logic: wheelLogic,
+      slideActionFlg: _slideActionFlg,
+    );
+    wheelWidget = WheelWidget(
+      marginSet: wheelLogic.margin,
+      fontSizeSet: wheelLogic.fontSize,
+    );
   }
 
   Widget _rightOfRightButton() {
@@ -164,7 +157,6 @@ class _WheelPageState2 extends State<WheelPage2> {
                     });
                   },
                   pageStart: (index) {
-                    /// 配列で設定
                     _slideActionFlg
                         ? wheelDataSet.startController(
                             index,

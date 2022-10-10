@@ -1,4 +1,3 @@
-import 'dart:ffi';
 import 'dart:math';
 
 import 'package:wheel_expand_list/wheel_logic.dart';
@@ -21,7 +20,7 @@ extension Range on int {
   }
 }
 
-extension loopLogic on WheelLogic {
+extension Loop on WheelLogic {
   loop1(bool flg) {
     textList.clear();
     pageList.clear();

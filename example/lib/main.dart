@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:ffi';
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:wheel_expand_list/wheel_expand_list.dart';
@@ -50,14 +48,7 @@ class _WheelPageState extends State<WheelPage> {
   void _updateData(bool flg) {
     setState(() {
       wheelLogic.loop1(flg);
-      wheelDataSet = WheelDataSet(
-        logic: wheelLogic,
-        slideActionFlg: _slideActionFlg,
-      );
-      wheelWidget = WheelWidget(
-        marginSet: wheelLogic.margin,
-        fontSizeSet: wheelLogic.fontSize,
-      );
+      _widgetSet();
     });
   }
 
@@ -65,20 +56,24 @@ class _WheelPageState extends State<WheelPage> {
   void _updateSwipeType() {
     setState(() {
       wheelLogic.type();
-      wheelDataSet = WheelDataSet(
-        logic: wheelLogic,
-        slideActionFlg: _slideActionFlg,
-      );
-      wheelWidget = WheelWidget(
-        marginSet: wheelLogic.margin,
-        fontSizeSet: wheelLogic.fontSize,
-      );
+      _widgetSet();
       wheelLogic.initSet(
         marginSet: wheelLogic.fontSize,
         fontSizeSet: wheelLogic.margin,
         again: false,
       );
     });
+  }
+
+  void _widgetSet() {
+    wheelDataSet = WheelDataSet(
+      logic: wheelLogic,
+      slideActionFlg: _slideActionFlg,
+    );
+    wheelWidget = WheelWidget(
+      marginSet: wheelLogic.margin,
+      fontSizeSet: wheelLogic.fontSize,
+    );
   }
 
   Widget _rightOfRightButton() {
