@@ -61,11 +61,11 @@ class WheelPageState2 extends State<WheelPage2> {
       ),
       body: Stack(
         children: [
-          for (var i = 0; i < wheelLogic.textListLists.length; i++) ...[
+          for (var i = 0; i < wheelLogic.textLists.length; i++) ...[
             wheelWidget.loopWidget(
               context,
-              wheelLogic.globalKeysLists[i],
-              wheelLogic.textListLists[i],
+              wheelLogic.globalKeyLists[i],
+              wheelLogic.textLists[i],
               wheelLogic.margin,
               wheelLogic.fontSize,
             ),

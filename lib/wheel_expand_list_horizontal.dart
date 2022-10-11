@@ -128,8 +128,7 @@ class WheelExpandListHorizontal extends StatelessWidget {
                 children: [
                   wheelPrimitiveWidget.primitiveWidget(
                     context,
-                    wheelLogic.textListLists[wheelLogic.pageCounts[index]]
-                        [index],
+                    wheelLogic.textLists[wheelLogic.pageCounts[index]][index],
                     0,
                     0,
                   ),

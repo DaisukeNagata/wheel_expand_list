@@ -20,8 +20,8 @@ class WheelLogic {
   List<GlobalKey> globalKeys = [];
   List<double> originYListTop = [];
   List<List<double>> heightLists = [];
-  List<List<String>> textListLists = [];
-  List<List<GlobalKey>> globalKeysLists = [];
+  List<List<String>> textLists = [];
+  List<List<GlobalKey>> globalKeyLists = [];
   List<FixedExtentScrollController> controllers = [];
   WheelSwipeType swipeType = WheelSwipeType.right;
   var controller = FixedExtentScrollController(initialItem: 0);
@@ -57,19 +57,19 @@ class WheelLogic {
     if (again) {
       margin = marginSet;
       fontSize = fontSizeSet;
-      globalKeysLists.clear();
+      globalKeyLists.clear();
       pageCounts.clear();
 
-      for (var i = 0; i < textListLists.length; i++) {
+      for (var i = 0; i < textLists.length; i++) {
         pageCounts.add(0);
-        globalKeysLists.add([]);
-        for (var nestI = 0; nestI < textListLists.length; nestI++) {
-          globalKeysLists[i].add(GlobalKey());
+        globalKeyLists.add([]);
+        for (var nestI = 0; nestI < textLists.length; nestI++) {
+          globalKeyLists[i].add(GlobalKey());
         }
       }
-      _addHeightValues(globalKeysLists, margin.toInt());
+      _addHeightValues(globalKeyLists, margin.toInt());
     } else {
-      _addHeightValues(globalKeysLists, margin.toInt());
+      _addHeightValues(globalKeyLists, margin.toInt());
     }
   }
 

@@ -40,12 +40,12 @@ extension Loop on WheelLogic {
   }
 
   loop2(bool flg) {
-    textListLists.clear();
+    textLists.clear();
     pageList.clear();
     for (var i = 0; i < 10; i++) {
-      textListLists.add([]);
+      textLists.add([]);
       for (var nestI = 1; nestI < 11; nestI++) {
-        textListLists[i]
+        textLists[i]
             .add(''.generateRandomString(nestI * 0.randomIntWithRange(1, 10)));
       }
       pageList.add(0.randomIntWithRange(1, 9));

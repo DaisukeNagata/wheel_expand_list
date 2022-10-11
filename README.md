@@ -20,6 +20,28 @@ https://pub.dev/packages/wheel_expand_list
 
 
 ## Construction
+### Setting location of WheelExample
+``` 
+wheelWidget.loopWidget(
+ context,
+　wheelLogic.globalKeys,
+  wheelLogic.textList,
+  wheelLogic.margin,
+  wheelLogic.fontSize,
+),
+``` 
+
+### Setting location of WheelExample2
+```
+
+wheelWidget.loopWidget(
+  context,
+  wheelLogic.globalKeysLists[i],
+  wheelLogic.textLists[i],
+  wheelLogic.margin,
+  wheelLogic.fontSize,
+),
+```         
 
 ### Your favorite design will be reflected in the Widget.
 ```

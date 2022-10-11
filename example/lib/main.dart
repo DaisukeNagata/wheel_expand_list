@@ -87,46 +87,40 @@ class WheelPageState extends State<WheelPage> {
               AsyncSnapshot<List<double>> snapshot,
             ) {
               if (snapshot.hasData) {
-                return SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      WheelExpandList(
-                        callBack: (index) {
-                          Future(() {
-                            setState(() {
-                              wheelLogic.indexCount = index;
-                            });
-                          });
-                        },
-                        pageStart: (index) {
-                          wheelLogic.slideActionFlg
-                              ? wheelDataSet.startController(
-                                  index,
-                                  300,
-                                  wheelLogic.controller,
-                                  Curves.slowMiddle,
-                                )
-                              : wheelDataSet.startController(
-                                  index,
-                                  300,
-                                  wheelLogic.controller,
-                                  Curves.easeOut,
-                                );
-                        },
-                        pageEnd: (value) {
-                          Future(() {
-                            setState(() {
-                              wheelLogic.indexCount = 0;
-                              wheelLogic.pageCount = value;
-                            });
-                          });
-                        },
-                        wheelDataModel: wheelDataSet,
-                        wheelPrimitiveWidget: wheelWidget,
-                        wheelLogic: wheelLogic,
-                      ),
-                    ],
-                  ),
+                return WheelExpandList(
+                  callBack: (index) {
+                    Future(() {
+                      setState(() {
+                        wheelLogic.indexCount = index;
+                      });
+                    });
+                  },
+                  pageStart: (index) {
+                    wheelLogic.slideActionFlg
+                        ? wheelDataSet.startController(
+                            index,
+                            300,
+                            wheelLogic.controller,
+                            Curves.slowMiddle,
+                          )
+                        : wheelDataSet.startController(
+                            index,
+                            300,
+                            wheelLogic.controller,
+                            Curves.easeOut,
+                          );
+                  },
+                  pageEnd: (value) {
+                    Future(() {
+                      setState(() {
+                        wheelLogic.indexCount = 0;
+                        wheelLogic.pageCount = value;
+                      });
+                    });
+                  },
+                  wheelDataModel: wheelDataSet,
+                  wheelPrimitiveWidget: wheelWidget,
+                  wheelLogic: wheelLogic,
                 );
               } else {
                 return Container();
