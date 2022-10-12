@@ -122,18 +122,25 @@ extension WheelPageStateEx on WheelPageState {
     );
   }
 
+  void _updateSwipeType() {
+    wheelLogic.type();
+
+    wheelDataSet = WheelDataSet(
+      logic: wheelLogic,
+    );
+    wheelWidget = WheelWidget(
+      logic: wheelLogic,
+    );
+    refresh();
+  }
+
   Widget rightOfLeftButton() {
     return IconButton(
       icon: wheelDataSet.swipeType == WheelSwipeType.right
           ? const Icon(Icons.keyboard_arrow_left)
           : const Icon(Icons.keyboard_arrow_right),
       onPressed: () => {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const WheelExample2(),
-          ),
-        ),
+        _updateSwipeType(),
         refresh(),
       },
     );
@@ -143,11 +150,9 @@ extension WheelPageStateEx on WheelPageState {
     return IconButton(
       icon: const Icon(Icons.cached_outlined),
       onPressed: () => {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const WheelExample2(),
-          ),
+        wheelLogic.slideActionFlg = !wheelLogic.slideActionFlg,
+        wheelDataSet = WheelDataSet(
+          logic: wheelLogic,
         ),
         refresh(),
       },
@@ -158,12 +163,7 @@ extension WheelPageStateEx on WheelPageState {
     return IconButton(
       icon: const Icon(Icons.update),
       onPressed: () => {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const WheelExample2(),
-          ),
-        ),
+        updateData(false),
         refresh(),
       },
     );
