@@ -97,42 +97,27 @@ extension Loop on WheelLogic {
 extension WheelPageStateEx on WheelPageState {
   /// Example
   void updateData(bool flg) {
-    setState(() {
-      wheelLogic.loop1(flg);
-      wheelDataSet = WheelDataSet(
-        logic: wheelLogic,
-      );
-      wheelWidget = WheelWidget(
-        logic: wheelLogic,
-      );
-    });
-  }
-
-  void _updateSwipeType() {
-    setState(() {
-      wheelLogic.type();
-      wheelLogic.initSet(
-        marginSet: wheelLogic.fontSize,
-        fontSizeSet: wheelLogic.margin,
-        again: false,
-      );
-    });
+    wheelLogic.loop1(flg);
+    wheelDataSet = WheelDataSet(
+      logic: wheelLogic,
+    );
+    wheelWidget = WheelWidget(
+      logic: wheelLogic,
+    );
+    refresh();
   }
 
   Widget rightOfRightButton() {
     return IconButton(
       icon: const Icon(Icons.arrow_forward),
       onPressed: () => {
-        setState(
-          () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const WheelExample2(),
-              ),
-            );
-          },
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const WheelExample2(),
+          ),
         ),
+        refresh(),
       },
     );
   }
@@ -143,9 +128,13 @@ extension WheelPageStateEx on WheelPageState {
           ? const Icon(Icons.keyboard_arrow_left)
           : const Icon(Icons.keyboard_arrow_right),
       onPressed: () => {
-        setState(() {
-          _updateSwipeType();
-        }),
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const WheelExample2(),
+          ),
+        ),
+        refresh(),
       },
     );
   }
@@ -154,12 +143,13 @@ extension WheelPageStateEx on WheelPageState {
     return IconButton(
       icon: const Icon(Icons.cached_outlined),
       onPressed: () => {
-        setState(() {
-          wheelLogic.slideActionFlg = !wheelLogic.slideActionFlg;
-          wheelDataSet = WheelDataSet(
-            logic: wheelLogic,
-          );
-        }),
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const WheelExample2(),
+          ),
+        ),
+        refresh(),
       },
     );
   }
@@ -168,9 +158,13 @@ extension WheelPageStateEx on WheelPageState {
     return IconButton(
       icon: const Icon(Icons.update),
       onPressed: () => {
-        setState(() {
-          updateData(false);
-        }),
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const WheelExample2(),
+          ),
+        ),
+        refresh(),
       },
     );
   }
@@ -178,22 +172,20 @@ extension WheelPageStateEx on WheelPageState {
 
 extension WheelPageState2Ex on WheelPageState2 {
   void updateData(bool flg) {
-    setState(() {
-      wheelLogic.loop2(flg);
-      wheelDataSet = WheelDataSet(
-        logic: wheelLogic,
-      );
-      wheelWidget = WheelWidget(
-        logic: wheelLogic,
-      );
-    });
+    wheelLogic.loop2(flg);
+    wheelDataSet = WheelDataSet(
+      logic: wheelLogic,
+    );
+    wheelWidget = WheelWidget(
+      logic: wheelLogic,
+    );
+    refresh();
   }
 
   void _updateSwipeType() {
-    setState(() {
-      wheelLogic.type();
-      wheelLogic.setHeightValue2(false);
-    });
+    wheelLogic.type();
+    wheelLogic.setHeightValue2(false);
+    refresh();
   }
 
   Widget rightOfRightButton() {
@@ -202,9 +194,8 @@ extension WheelPageState2Ex on WheelPageState2 {
           ? const Icon(Icons.keyboard_arrow_left)
           : const Icon(Icons.keyboard_arrow_right),
       onPressed: () => {
-        setState(() {
-          _updateSwipeType();
-        }),
+        _updateSwipeType(),
+        refresh(),
       },
     );
   }
@@ -213,12 +204,11 @@ extension WheelPageState2Ex on WheelPageState2 {
     return IconButton(
       icon: const Icon(Icons.cached_outlined),
       onPressed: () => {
-        setState(() {
-          wheelLogic.slideActionFlg = !wheelLogic.slideActionFlg;
-          wheelDataSet = WheelDataSet(
-            logic: wheelLogic,
-          );
-        }),
+        wheelLogic.slideActionFlg = !wheelLogic.slideActionFlg,
+        wheelDataSet = WheelDataSet(
+          logic: wheelLogic,
+        ),
+        refresh(),
       },
     );
   }
@@ -227,9 +217,8 @@ extension WheelPageState2Ex on WheelPageState2 {
     return IconButton(
       icon: const Icon(Icons.update),
       onPressed: () => {
-        setState(() {
-          updateData(false);
-        }),
+        updateData(false),
+        refresh(),
       },
     );
   }
@@ -238,11 +227,8 @@ extension WheelPageState2Ex on WheelPageState2 {
     return IconButton(
       icon: const Icon(Icons.arrow_back),
       onPressed: () => {
-        setState(
-          () {
-            Navigator.of(context).pop();
-          },
-        ),
+        updateData(false),
+        refresh(),
       },
     );
   }

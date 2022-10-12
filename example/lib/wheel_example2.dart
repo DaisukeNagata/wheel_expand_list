@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wheel_expand_list/wheel_expand_list_horizontal.dart';
 import 'package:wheel_expand_list/wheel_logic.dart';
-import 'package:wheel_expand_list/wheel_swipe_type.dart';
 import 'package:wheel_expand_list_example/wheel_data_set.dart';
 import 'package:wheel_expand_list_example/wheel_extension_logic.dart';
 import 'package:wheel_expand_list_example/wheel_widget.dart';
@@ -30,6 +29,7 @@ class WheelPageState2 extends State<WheelPage2> {
   var wheelLogic = WheelLogic();
   late WheelDataSet wheelDataSet;
   late WheelWidget wheelWidget;
+  refresh() => setState(() {});
 
   @override
   void initState() {
