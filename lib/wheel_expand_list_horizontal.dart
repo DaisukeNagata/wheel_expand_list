@@ -25,8 +25,8 @@ class WheelExpandListHorizontal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height,
       child: ListView.builder(
         scrollDirection: Axis.vertical,
         itemCount: wheelLogic.pageList.length,
@@ -45,18 +45,10 @@ class WheelExpandListHorizontal extends StatelessWidget {
                                 ? 1
                                 : 3,
                         child: NotificationListener(
-                          onNotification: (notificationInfo) {
-                            if (notificationInfo is ScrollStartNotification) {
-                              // call.call(index);
-                              wheelLogic.indexCount = index;
-
-                              wheelLogic.pageCount = index;
-                              wheelLogic.valueSetReady =
-                                  wheelLogic.pageCounts[index];
-                              wheelLogic.valueSet =
-                                  wheelLogic.valueSetReady + 1;
-                            } else if (notificationInfo
-                                is ScrollEndNotification) {
+                          onNotification: (info) {
+                            if (info is ScrollStartNotification) {
+                              _startNotification(index);
+                            } else if (info is ScrollEndNotification) {
                               pageEnd.call(wheelLogic.valueSetReady);
                             }
                             return true;
@@ -69,8 +61,7 @@ class WheelExpandListHorizontal extends StatelessWidget {
                             physics: const FixedExtentScrollPhysics(),
                             clipBehavior: Clip.antiAlias,
                             onSelectedItemChanged: (index) {
-                              pageStart.call(index);
-                              wheelLogic.valueSetReady = index;
+                              _onSelectedItemChanged(index);
                             },
                             children: List<Widget>.generate(
                               wheelDataModel.generate,
@@ -101,6 +92,19 @@ class WheelExpandListHorizontal extends StatelessWidget {
         },
       ),
     );
+  }
+
+  void _onSelectedItemChanged(int index) {
+    pageStart.call(index);
+    wheelLogic.valueSetReady = index;
+  }
+
+  void _startNotification(int index) {
+    wheelLogic.indexCount = index;
+
+    wheelLogic.pageCount = index;
+    wheelLogic.valueSetReady = wheelLogic.pageCounts[index];
+    wheelLogic.valueSet = wheelLogic.valueSetReady + 1;
   }
 
   Widget _widgetDesign(BuildContext context, int index) {
