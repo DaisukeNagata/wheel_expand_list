@@ -78,7 +78,7 @@ class WheelPageState2 extends State<WheelPage2> {
             ) {
               if (snapshot.hasData) {
                 return WheelExpandListHorizontal(
-                  pageStart: (index) {
+                  start: (index) {
                     wheelLogic.slideActionFlg
                         ? wheelDataSet.startController(
                             index,
@@ -93,7 +93,7 @@ class WheelPageState2 extends State<WheelPage2> {
                             Curves.easeOut,
                           );
                   },
-                  pageEnd: (index) {
+                  end: (index) {
                     Future(() {
                       setState(() {
                         wheelLogic.valueSet = wheelLogic.valueSetReady + 1;

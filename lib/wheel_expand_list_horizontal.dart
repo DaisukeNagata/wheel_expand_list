@@ -10,15 +10,15 @@ import 'package:wheel_expand_list/wheel_swipe_type.dart';
 class WheelExpandListHorizontal extends StatelessWidget {
   const WheelExpandListHorizontal({
     super.key,
-    required this.pageStart,
-    required this.pageEnd,
+    required this.start,
+    required this.end,
     required this.wheelLogic,
     required this.wheelDataModel,
     required this.wheelPrimitiveWidget,
   });
 
-  final Function(int) pageStart;
-  final Function(int) pageEnd;
+  final Function(int) start;
+  final Function(int) end;
   final WheelLogic wheelLogic;
   final WheelPrimitiveModel wheelDataModel;
   final WheelPrimitiveWidget wheelPrimitiveWidget;
@@ -32,6 +32,10 @@ class WheelExpandListHorizontal extends StatelessWidget {
         itemCount: wheelLogic.pageList.length,
         itemBuilder: (context, index) {
           return GestureDetector(
+            onTap: () {
+              wheelLogic.indexCount = index;
+              end.call(wheelLogic.indexCount);
+            },
             child: SafeArea(
               child: SizedBox(
                 height: wheelLogic.heightLists[wheelLogic.pageCounts[index]]
@@ -49,7 +53,7 @@ class WheelExpandListHorizontal extends StatelessWidget {
                             if (info is ScrollStartNotification) {
                               _startNotification(index);
                             } else if (info is ScrollEndNotification) {
-                              pageEnd.call(wheelLogic.valueSetReady);
+                              end.call(wheelLogic.valueSetReady);
                             }
                             return true;
                           },
@@ -95,7 +99,7 @@ class WheelExpandListHorizontal extends StatelessWidget {
   }
 
   void _onSelectedItemChanged(int index) {
-    pageStart.call(index);
+    start.call(index);
     wheelLogic.valueSetReady = index;
   }
 
