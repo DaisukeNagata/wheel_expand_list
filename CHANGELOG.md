@@ -205,3 +205,7 @@
 ## 0.2.10
 
 * Refactor -> Change logic of setState
+
+## 0.2.11
+
+* Refactor -> Call Back logic

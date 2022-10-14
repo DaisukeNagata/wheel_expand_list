@@ -12,7 +12,6 @@ class WheelExpandListHorizontal extends StatelessWidget {
     super.key,
     required this.pageStart,
     required this.pageEnd,
-    required this.tapCall,
     required this.wheelLogic,
     required this.wheelDataModel,
     required this.wheelPrimitiveWidget,
@@ -20,7 +19,6 @@ class WheelExpandListHorizontal extends StatelessWidget {
 
   final Function(int) pageStart;
   final Function(int) pageEnd;
-  final Function(int) tapCall;
   final WheelLogic wheelLogic;
   final WheelPrimitiveModel wheelDataModel;
   final WheelPrimitiveWidget wheelPrimitiveWidget;
@@ -34,15 +32,6 @@ class WheelExpandListHorizontal extends StatelessWidget {
         itemCount: wheelLogic.pageList.length,
         itemBuilder: (context, index) {
           return GestureDetector(
-            onTapDown: (_) {
-              wheelLogic.indexCount = index;
-              wheelLogic.pageCount = index;
-              wheelLogic.valueSetReady = wheelLogic.pageCounts[index];
-              wheelLogic.valueSet = wheelLogic.valueSetReady + 1;
-            },
-            onTapUp: (_) {
-              tapCall.call(index);
-            },
             child: SafeArea(
               child: SizedBox(
                 height: wheelLogic.heightLists[wheelLogic.pageCounts[index]]
@@ -57,12 +46,18 @@ class WheelExpandListHorizontal extends StatelessWidget {
                                 : 3,
                         child: NotificationListener(
                           onNotification: (notificationInfo) {
-                            if (notificationInfo is ScrollEndNotification) {
+                            if (notificationInfo is ScrollStartNotification) {
+                              // call.call(index);
+                              wheelLogic.indexCount = index;
+
+                              wheelLogic.pageCount = index;
+                              wheelLogic.valueSetReady =
+                                  wheelLogic.pageCounts[index];
                               wheelLogic.valueSet =
                                   wheelLogic.valueSetReady + 1;
-
+                            } else if (notificationInfo
+                                is ScrollEndNotification) {
                               pageEnd.call(wheelLogic.valueSetReady);
-                              wheelLogic.streamController.sink.add([]);
                             }
                             return true;
                           },

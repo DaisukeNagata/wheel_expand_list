@@ -78,13 +78,6 @@ class WheelPageState2 extends State<WheelPage2> {
             ) {
               if (snapshot.hasData) {
                 return WheelExpandListHorizontal(
-                  tapCall: (index) {
-                    Future(() {
-                      setState(() {
-                        wheelLogic.indexCount = index;
-                      });
-                    });
-                  },
                   pageStart: (index) {
                     wheelLogic.slideActionFlg
                         ? wheelDataSet.startController(
@@ -100,10 +93,12 @@ class WheelPageState2 extends State<WheelPage2> {
                             Curves.easeOut,
                           );
                   },
-                  pageEnd: (value) {
+                  pageEnd: (index) {
                     Future(() {
                       setState(() {
-                        wheelLogic.pageCounts[wheelLogic.pageCount] = value;
+                        wheelLogic.valueSet = wheelLogic.valueSetReady + 1;
+                        wheelLogic.pageCounts[wheelLogic.pageCount] =
+                            wheelLogic.valueSetReady;
                       });
                     });
                   },

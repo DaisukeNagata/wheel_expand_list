@@ -227,7 +227,7 @@ extension WheelPageState2Ex on WheelPageState2 {
     return IconButton(
       icon: const Icon(Icons.arrow_back),
       onPressed: () => {
-        updateData(false),
+        Navigator.of(context).pop(true),
         refresh(),
       },
     );
