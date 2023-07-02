@@ -217,3 +217,7 @@
 ## 0.2.13
 
 * Refactor
+
+## 0.2.14
+
+* update licence
